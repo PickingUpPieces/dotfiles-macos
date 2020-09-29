@@ -60,3 +60,5 @@ yabai -m rule --add label="mpv" app="^mpv$" manage=off
 yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
 yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off
+yabai -m rule --add label="TickTick" app="^TickTick$" manage=off
+yabai -m rule --add label="Slack" app="^Slack$" manage=off
