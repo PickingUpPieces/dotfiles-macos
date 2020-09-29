@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-scratchpad_id=$(yabai -m query --windows | jq '.[] | select(.title=="Bitwarden").id')
+scratchpad_id=$(yabai -m query --windows | jq '.[] | select(.title=="TickTick").id')
 
 if [[ "$scratchpad_id" -lt 1 ]]; then
-  scratchpad_id=$(open -a "Bitwarden" | awk '{print $NF}')
+  scratchpad_id=$(open -a "TickTick" | awk '{print $NF}')
   sleep 1
   yabai -m window --focus "$scratchpad_id"
 #  yabai -m window --toggle float
@@ -18,6 +18,7 @@ else
     yabai -m window "$scratchpad_id" --space "$current_space"
     yabai -m window --focus "$scratchpad_id"
   else
+    yabai -m window --focus recent
     yabai -m window "$scratchpad_id" --minimize
   fi
 fi

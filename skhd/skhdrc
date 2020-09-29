@@ -1,6 +1,8 @@
 # opens iTerm2
-alt - return : ~/.config/yabai/scripts/open_iterm2.sh
-alt - b : ~/.config/yabai/scripts/scratchpad_bitwarden.sh
+alt - return : ~/.config/scripts/open_iterm2.sh
+alt - b : ~/.config/scripts/scratchpad_bitwarden.sh
+alt - p : ~/.config/scripts/scratchpad_ticktick.sh
+alt - i : ~/.config/scripts/scratchpad_slack.sh
 
 
 # Navigation
@@ -24,7 +26,7 @@ shift + alt - 5 : yabai -m window --space 5
 shift + alt - 6 : yabai -m window --space 6 
 
 # Change workspace focus
-alt - 1 : yabai -m space --focus 1
+alt - 1 : yabai -m space --focus 1 
 alt - 2 : yabai -m space --focus 2
 alt - 3 : yabai -m space --focus 3
 alt - 4 : yabai -m space --focus 4
