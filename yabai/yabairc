@@ -48,10 +48,20 @@ yabai -m config normal_window_border_color  "0x00${normal_border_color}"
 
 # ====== List of rules =========================
 
-yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+# Open finder always on top
+yabai -m rule --add label="Finderall" app="^Finder$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
-yabai -m rule --add label="App Store" app="^App Store$" manage=off
+
+# Open Messages app central
+yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4
+
+	
+# Don't manage Preferences
+yabai -m rule --add title='Preferences$' manage=off topmost=on grid=4:4:1:1:2:2  
+yabai -m rule --add app='^System Preferences$' manage=off grid=4:4:1:1:2:2  
+
+# Other Stuff
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
 yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
@@ -59,6 +69,21 @@ yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
 yabai -m rule --add label="mpv" app="^mpv$" manage=off
 yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
 yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
+yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
+
+# Scratchpad
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off
 yabai -m rule --add label="TickTick" app="^TickTick$" manage=off
-yabai -m rule --add label="Slack" app="^Slack$" manage=off
+yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
+
+# Mail
+yabai -m rule --add app="^Mail$" space=6 
+
+
+
+# ====== List of signals =========================
+
+# Destroy empty spaces
+yabai -m signal --add event='space_changed' action="sh ~/.config/scripts/empty_space2.sh"
+
