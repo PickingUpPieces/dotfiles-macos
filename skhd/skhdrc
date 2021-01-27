@@ -94,4 +94,4 @@ shift + cmd - n : ~/.config/scripts/new_space.sh
 
 # destroy desktop
 shift + cmd - q : yabai -m space --destroy ; \
-                  yabai -m window --focus first
+                  yabai -m window --focus recent

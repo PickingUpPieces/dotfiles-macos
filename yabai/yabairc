@@ -45,7 +45,7 @@ yabai -m config mouse_action2               resize
 
 yabai -m config window_topmost              off
 yabai -m config window_opacity              off
-yabai -m config window_shadow               float
+yabai -m config window_shadow               off # More Performance
 
 yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.9
@@ -85,6 +85,7 @@ yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
 yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add app="^Stats" manage=off
 
 # Scratchpad
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off
@@ -102,6 +103,9 @@ yabai -m rule --add app="^Mail$" space=6
 # Destroy empty spaces
 yabai -m signal --add event='space_changed' action="sh ~/.config/scripts/empty_space2.sh"
 
+# Minimize Scratchpad windows, when focus is changed
+yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
 
 # Uebersicht simple-bar signals
 # Refresh spaces widget on space change
