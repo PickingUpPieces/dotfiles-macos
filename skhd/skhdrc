@@ -19,15 +19,15 @@ shift + lalt - k : yabai -m window --warp north
 shift + lalt - l : yabai -m window --warp east
 
 # Move focused container to workspace
-shift + lalt - 1 : yabai -m window --space 1 
-shift + lalt - 2 : yabai -m window --space 2
-shift + lalt - 3 : yabai -m window --space 3 
-shift + lalt - 4 : yabai -m window --space 4 
-shift + lalt - 5 : yabai -m window --space 5 
-shift + lalt - 6 : yabai -m window --space 6 
-shift + lalt - 7 : yabai -m window --space 7 
-shift + lalt - 8 : yabai -m window --space 8 
-shift + lalt - 9 : yabai -m window --space 9 
+shift + lalt - 1 : yabai -m window --space 1; \ yabai -m space --focus 1
+shift + lalt - 2 : yabai -m window --space 2; \ yabai -m space --focus 2 
+shift + lalt - 3 : yabai -m window --space 3; \ yabai -m space --focus 3 
+shift + lalt - 4 : yabai -m window --space 4; \ yabai -m space --focus 4 
+shift + lalt - 5 : yabai -m window --space 5; \ yabai -m space --focus 5 
+shift + lalt - 6 : yabai -m window --space 6; \ yabai -m space --focus 6  
+shift + lalt - 7 : yabai -m window --space 7; \ yabai -m space --focus 7  
+shift + lalt - 8 : yabai -m window --space 8; \ yabai -m space --focus 8  
+shift + lalt - 9 : yabai -m window --space 9; \ yabai -m space --focus 9  
 
 # Change workspace focus
 lalt - 1 : yabai -m space --focus 1; \ yabai -m window --focus first

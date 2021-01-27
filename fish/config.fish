@@ -1,6 +1,7 @@
 # Set neovim as standard editor
 set -Ux EDITOR nvim
 
+alias vim='nvim'
 
 # Solarized for bobthefish theme
 set -g theme_color_scheme nord
