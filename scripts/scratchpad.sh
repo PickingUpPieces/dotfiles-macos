@@ -19,6 +19,8 @@ else
     yabai -m window --focus "$scratchpad_id"
     yabai -m window --grid 6:6:1:1:4:4
   else
+      # TODO Check if current focused window isn't minimized and is on the current space
+      # TODO If not, focus current space; Deals with the problem of double opened scratchpad windows
     yabai -m window --focus recent
     yabai -m window "$scratchpad_id" --minimize
   fi
