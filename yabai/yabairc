@@ -17,7 +17,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 # ====== Variables =============================
 
 gaps_top="4"
-gaps_bottom="28"
+gaps_bottom="30"
 gaps_left="4"
 gaps_right="4"
 gaps_inner="4"
@@ -71,8 +71,8 @@ yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:
 
 	
 # Don't manage Preferences
-yabai -m rule --add title='Preferences$' manage=off layer=above grid=4:4:1:1:2:2  
-yabai -m rule --add app='^System Preferences$' manage=off grid=4:4:1:1:2:2  
+yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1
+yabai -m rule --add app='^System Preferences$' manage=off grid=3:3:1:1:1:1
 
 # Other Stuff
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
@@ -86,6 +86,7 @@ yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:
 yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add app="^Stats" manage=off
+yabai -m rule --add app="^Tunnelblick" manage=off
 
 # Scratchpad
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off
