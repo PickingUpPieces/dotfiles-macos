@@ -16,8 +16,8 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ====== Variables =============================
 
-gaps_top="4"
-gaps_bottom="30"
+gaps_top="30"
+gaps_bottom="4"
 gaps_left="4"
 gaps_right="4"
 gaps_inner="4"
@@ -37,7 +37,7 @@ yabai -m config right_padding               "${gaps_right}"
 yabai -m config window_gap                  "${gaps_inner}"
 
 yabai -m config mouse_follows_focus         off
-yabai -m config focus_follows_mouse         on
+yabai -m config focus_follows_mouse         off
 
 yabai -m config mouse_modifier              fn
 yabai -m config mouse_action1               move
@@ -107,6 +107,8 @@ yabai -m signal --add event='space_changed' action="sh ~/.config/scripts/empty_s
 # Minimize Scratchpad windows, when focus is changed
 yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
+
 
 # Uebersicht simple-bar signals
 # Refresh spaces widget on space change
