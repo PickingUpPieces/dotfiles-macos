@@ -1,7 +1,9 @@
 # opens iTerm2
 alt - return : ~/.config/scripts/open_iterm.sh
 # TODO Script for opening firefox new window. At the moment new window on space where previous firefox window is opened
+# Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
 shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox
+
 alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
 alt - p : ~/.config/scripts/scratchpad.sh TickTick
 alt - s : ~/.config/scripts/scratchpad.sh Slack
@@ -69,12 +71,6 @@ lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 alt - r         : yabai -m space --rotate 90
 shift + alt - r : yabai -m space --rotate 270
 
-# Set insertion point for focused container
-shift + lctrl + alt - h : yabai -m window --insert west
-shift + lctrl + alt - j : yabai -m window --insert south
-shift + lctrl + alt - k : yabai -m window --insert north
-shift + lctrl + alt - l : yabai -m window --insert east
-
 # Float / Unfloat window
 shift + alt - space : yabai -m window --toggle float
 
@@ -84,10 +80,10 @@ shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.m
 # Make window zoom fullscreen
 alt - f         : yabai -m window --toggle zoom-fullscreen 
 
-# make floating window fullscreen
+# Make floating window fullscreen
 shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
 
-# close window (only works on windows with a close button in it's titlebar)
+# Close window (only works on windows with a close button in it's titlebar). cmq + q closess all open application windows
 alt - q : yabai -m window --close # && yabai -m window --focus recent
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
@@ -101,7 +97,3 @@ shift + alt - n : yabai -m space --create; \
 shift + cmd - n : yabai -m space --create; \
                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')"; \
                   yabai -m space --focus "${index}"
-
-# destroy desktop
-shift + cmd - q : yabai -m space --destroy  && yabai -m window --focus recent
-

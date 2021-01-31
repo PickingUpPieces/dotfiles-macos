@@ -13,10 +13,9 @@ sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 
-
 # ====== Variables =============================
 
-gaps_top="30"
+gaps_top="30" # spacebar is at the top
 gaps_bottom="4"
 gaps_left="4"
 gaps_right="4"
@@ -54,7 +53,7 @@ yabai -m config auto_balance                on
 
 # ====== Border settings =======================
 
-yabai -m config window_border               off # Since BigSur round corners
+yabai -m config window_border               off # Not used because of BigSur round corners
 yabai -m config window_border_width         2
 yabai -m config active_window_border_color  "0xE0${focused_border_color}"
 yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
@@ -62,14 +61,6 @@ yabai -m config normal_window_border_color  "0x00${normal_border_color}"
 
 # ====== List of rules =========================
 
-# Open finder always on top
-yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4
-yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above 
-
-# Open Messages app central
-yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4
-
-	
 # Don't manage Preferences
 yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1
 yabai -m rule --add app='^System Preferences$' manage=off layer=above grid=3:3:1:1:1:1
@@ -82,19 +73,27 @@ yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
 yabai -m rule --add label="mpv" app="^mpv$" manage=off
 yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
 yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
-yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add app="^Stats" manage=off
 yabai -m rule --add app="^Tunnelblick" manage=off
 
+# TODO Define list of applications which should be displayed in grid and add them to minimize_scratchpad script
+yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4
+
+# Open finder always on top, since otherwise it stays hidden behind applications (Seems like it's finder specific)
+yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above 
+
+	
 # Scratchpad
-yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off
-yabai -m rule --add label="TickTick" app="^TickTick$" manage=off
+yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="TickTick" app="^TickTick$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
 
-# Mail
+# Rules for specific space assignment
 yabai -m rule --add app="^Mail$" space=6 
 
 
@@ -109,23 +108,6 @@ yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
 yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
 
-yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
 
-
-# Uebersicht simple-bar signals
-# https://github.com/Jean-Tinland/simple-bar
-# Quit heavy but looks nice (It's javascript, it's a trap) --> https://github.com/cmacrae/spacebar
-
-# Refresh spaces widget on space change
-#yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
-# Refresh spaces widget on display focus change
-#yabai -m signal --add event=display_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
-
-# Refresh spaces widget on when focused application changes
-#yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
-
-# Refresh spaces widget on when focused application changes
-#yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
-
-# Refresh spaces widget on when an application window is closed
-#yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# TODO Write script that checks when a window is destroyed, if a winodow is focused on the current workspace which isn't minimized.
+# If not, focus first window on space
