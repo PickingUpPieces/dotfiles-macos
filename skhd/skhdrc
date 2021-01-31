@@ -1,5 +1,7 @@
 # opens iTerm2
-alt - return : ~/.config/scripts/open_iterm2.sh
+alt - return : ~/.config/scripts/open_iterm.sh
+# TODO Script for opening firefox new window. At the moment new window on space where previous firefox window is opened
+shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox
 alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
 alt - p : ~/.config/scripts/scratchpad.sh TickTick
 alt - s : ~/.config/scripts/scratchpad.sh Slack
