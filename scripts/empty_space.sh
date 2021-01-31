@@ -1,13 +1,12 @@
-#! /usr/bin/env sh
+#!/usr/bin/env bash
 
-read -r -d '' action <<- 'EOF'
-  recent_space_index="$(yabai -m query --spaces | jq -er 'map(select(.id | tostring == env.YABAI_RECENT_SPACE_ID))[0].index')"
-  echo recent_space_index
-  if yabai -m query --windows --space "${recent_space_index}" |
-    jq -er 'length == 0'
-  then
-    yabai -m space "${recent_space_index}" --destroy
-  fi
-EOF
+# Check if on current display is now a fullscreen window --> Then the previous space where window was before is empty, if it was the only window. Don't delete this space then.
+yabai -m query --spaces --display | \
+    # Check if a space is in native-fullscreen
+     jq -re 'map(select(."native-fullscreen" == 0)) | length > 1' \
+     && yabai -m query --spaces | \
+     # Check for a space with no windows AND isn't focused at the moment
+          jq -re 'map(select(."windows" == [] and ."focused" == 0).index) | reverse | .[] ' | \
+    # Destroy this space
+          xargs -I % sh -c 'yabai -m space % --destroy'
 
-yabai -m signal --add event='space_changed' action="${action}"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Generic Scratchpad script
+# Scratchpad script for Rocket.Chat because application name (Rocket.Chat.app) isn't running app name (RocketChat) - just great
 # $1 (First parameter): Program name
 
 scratchpad_id=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app==$program).id')
