@@ -2,3 +2,6 @@ nvim/plugged
 .mono
 nvim/.netrwhist
 htop
+neofetch
+omf
+configstore
