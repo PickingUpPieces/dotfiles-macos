@@ -1,8 +1,23 @@
-# opens iTerm2
+##############################################
+# Applications
+##############################################
+
+# iTerm2
 alt - return : ~/.config/scripts/open_iterm.sh
+# TODO Test
+# open terminal, blazingly fast compared to iTerm/Hyper
+cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
 # TODO Script for opening firefox new window. At the moment new window on space where previous firefox window is opened
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
 shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox
+
+# Restart Yabai
+shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+
+##############################################
+# Scratchpad 
+##############################################
 
 alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
 alt - p : ~/.config/scripts/scratchpad.sh TickTick
@@ -10,30 +25,17 @@ alt - s : ~/.config/scripts/scratchpad.sh Slack
 alt - u : ~/.config/scripts/scratchpad_RocketChat.sh Rocket.Chat
 
 
+##############################################
 # Navigation
+##############################################
+
+# Window
 lalt - h : yabai -m window --focus west
 lalt - j : yabai -m window --focus south
 lalt - k : yabai -m window --focus north
 lalt - l : yabai -m window --focus east
 
-# Moving windows
-shift + lalt - h : yabai -m window --warp west
-shift + lalt - j : yabai -m window --warp south
-shift + lalt - k : yabai -m window --warp north
-shift + lalt - l : yabai -m window --warp east
-
-# Move focused container to workspace
-shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1
-shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 
-shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 
-shift + lalt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 
-shift + lalt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 
-shift + lalt - 6 : yabai -m window --space 6 && yabai -m space --focus 6  
-shift + lalt - 7 : yabai -m window --space 7 && yabai -m space --focus 7  
-shift + lalt - 8 : yabai -m window --space 8 && yabai -m space --focus 8  
-shift + lalt - 9 : yabai -m window --space 9 && yabai -m space --focus 9  
-
-# Change workspace focus
+# Workspace 
 lalt - 1 : yabai -m space --focus 1
 lalt - 2 : yabai -m space --focus 2
 lalt - 3 : yabai -m space --focus 3
@@ -44,7 +46,41 @@ lalt - 7 : yabai -m space --focus 7
 lalt - 8 : yabai -m space --focus 8
 lalt - 9 : yabai -m space --focus 9
 
-# Resize windows
+# Monitors 
+ctrl + lalt - 1  : yabai -m display --focus 1
+ctrl + lalt - 2  : yabai -m display --focus 2
+ctrl + lalt - 3  : yabai -m display --focus 3
+
+##############################################
+# Moving
+##############################################
+
+# Window
+shift + lalt - h : yabai -m window --warp west
+shift + lalt - j : yabai -m window --warp south
+shift + lalt - k : yabai -m window --warp north
+shift + lalt - l : yabai -m window --warp east
+
+# Window to Workspace
+shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1
+shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 
+shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 
+shift + lalt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 
+shift + lalt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 
+shift + lalt - 6 : yabai -m window --space 6 && yabai -m space --focus 6  
+shift + lalt - 7 : yabai -m window --space 7 && yabai -m space --focus 7  
+shift + lalt - 8 : yabai -m window --space 8 && yabai -m space --focus 8  
+shift + lalt - 9 : yabai -m window --space 9 && yabai -m space --focus 9  
+
+# Rotate windows clockwise and anticlockwise
+alt - r         : yabai -m space --rotate 90
+shift + alt - r : yabai -m space --rotate 270
+
+##############################################
+# Sizing
+##############################################
+
+# Window
 lctrl + alt - h : \
     yabai -m window --resize left:-20:0 ; \
     yabai -m window --resize right:-20:0
@@ -64,27 +100,24 @@ lctrl + alt - l : \
 # Equalize size of windows
 lctrl + alt - 0 : yabai -m space --balance
 
-# Enable / Disable gaps in current workspace
-lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+##############################################
+# Miscellaneous
+##############################################
+#
+# Window zoom fullscreen (NOT native fullscreen)
+alt - f         : yabai -m window --toggle zoom-fullscreen 
 
-# Rotate windows clockwise and anticlockwise
-alt - r         : yabai -m space --rotate 90
-shift + alt - r : yabai -m space --rotate 270
+# Floating window zoom fullscreen
+shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
 
 # Float / Unfloat window
 shift + alt - space : yabai -m window --toggle float
 
-# Restart Yabai
-shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
-
-# Make window zoom fullscreen
-alt - f         : yabai -m window --toggle zoom-fullscreen 
-
-# Make floating window fullscreen
-shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
+# Enable / Disable gaps in current workspace
+lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # Close window (only works on windows with a close button in it's titlebar). cmq + q closess all open application windows
-alt - q : yabai -m window --close # && yabai -m window --focus recent
+alt - q : yabai -m window --close 
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
 shift + alt - n : yabai -m space --create; \
@@ -93,7 +126,7 @@ shift + alt - n : yabai -m space --create; \
                   yabai -m space --focus "${index}"
 
 # create desktop and follow focus - uses jq for parsing json (brew install jq)
-#shift + cmd - n : ~/.config/scripts/new_space.sh
 shift + cmd - n : yabai -m space --create; \
                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')"; \
+                  yabai -m space --focus "${index}"; \
                   yabai -m space --focus "${index}"
