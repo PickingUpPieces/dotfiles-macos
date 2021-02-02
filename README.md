@@ -28,3 +28,6 @@ I'm currently using spacebar.
 ## Credits
 Like most/all dotfiles, a lot of stuff has been found somewhere on the internet (basically reddit or github). Sorry for not crediting!
 I've started my yabai and skhd config with https://github.com/Julian-Heng/chunkwm-yabai-config.
+https://github.com/camspiers/dotfiles
+https://github.com/stephen-huan/macos-dotfiles
+https://github.com/koekeishiya/dotfiles

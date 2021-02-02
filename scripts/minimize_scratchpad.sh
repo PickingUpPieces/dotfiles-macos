@@ -21,6 +21,7 @@ do
             #if [[ "$is_minimized" -ne 1 ]]; then
             yabai -m window "${scratchpad_id[$i]}" --minimize
             #fi
+            # TODO Set focus right - Maybe call focus script (look TODO bottom of yabairc file)
         fi
     fi
 done
