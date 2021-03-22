@@ -63,6 +63,7 @@ yabai -m config normal_window_border_color  "0x00${normal_border_color}"
 # Don't manage Preferences
 yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1
 yabai -m rule --add app='^System Preferences$' manage=off layer=above grid=3:3:1:1:1:1
+yabai -m rule --add app="^System Information" manage=off
 
 # Other Stuff
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
@@ -103,9 +104,9 @@ yabai -m rule --add app="^Mail$" space=3
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
 
 # Minimize Scratchpad windows, when focus is changed
-yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
+#yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
-yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
+#yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
 
 # On window_destroy, check if other window is focused; If not, check if it's possible to focus window under mouse; If not, Focus one window on other space
 #yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"

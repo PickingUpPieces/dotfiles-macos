@@ -7,6 +7,9 @@ scratchpad_id[1]=$(yabai -m query --windows | jq --arg program "$1" '.[] | selec
 scratchpad_id[2]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="Bitwarden").id')
 scratchpad_id[3]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="TickTick").id')
 
+# Some backoff so focused_window is the right one
+sleep 1
+
 focused_window=$(yabai -m query --windows --window | jq '.id')
 
 for i in 0 1 2 3 

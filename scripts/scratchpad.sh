@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Found here: https://github.com/koekeishiya/yabai/issues/379#issuecomment-616838371
 # Generic Scratchpad script
 # $1 (First parameter): Program name
 
@@ -21,7 +22,7 @@ else
   else
       # TODO Check if current focused window isn't minimized and is on the current space
       # TODO If not, focus current space; Deals with the problem of double opened scratchpad windows
-    yabai -m window --focus recent
+      yabai -m window --focus first
     yabai -m window "$scratchpad_id" --minimize
   fi
 fi
