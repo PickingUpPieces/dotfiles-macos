@@ -13,7 +13,7 @@ do
         minimized_windows=$(($minimized_windows + $(yabai -m query --windows --window "$window" | jq -re 'if ."is-minimized" then 1 else 0 end'))) 
     done
 
-    if [[ "$minimized_windows" -eq "${#window_ids[@]}" ]] && [[ $(echo $space | jq 'if ."is-native-fullscreen" then 1 else 0 end') -eq 0 ]]; then
+    if [[ "$minimized_windows" -eq "${#window_ids[@]}" ]] && [[ $(echo $space | jq 'if ."is-native-fullscreen" and ."is-visible" == false then 1 else 0 end') -eq 0 ]]; then
         echo "Destroy Space ID " $(echo $space | jq '.index') 
         composable_spaces+=( $(echo $space | jq '.index') )
     fi
@@ -34,6 +34,6 @@ yabai -m query --spaces --display | \
     jq -re 'map(select(."is-native-fullscreen" == false)) | length > 1' \
     && yabai -m query --spaces | \
     # Check for a space with no windows AND isn't focused at the moment
-    jq -re 'map(select(."windows" == [] and ."has-focus" == false).index) | reverse | .[] ' | \
+    jq -re 'map(select(."windows" == [] and ."is-visible" == false).index) | reverse | .[] ' | \
     # Destroy this space
     xargs -I % sh -c 'yabai -m space % --destroy'
