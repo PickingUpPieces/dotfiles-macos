@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Found here: https://github.com/koekeishiya/yabai/issues/379#issuecomment-616838371
 # Scratchpad script for Rocket.Chat because application name (Rocket.Chat.app) isn't running app name (RocketChat) - just great
 # $1 (First parameter): Program name
 

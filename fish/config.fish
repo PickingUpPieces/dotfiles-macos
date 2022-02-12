@@ -1,5 +1,6 @@
 # Set neovim as standard editor
 set -Ux EDITOR nvim
+set SHELL /bin/bash
 
 alias vim='nvim'
 
