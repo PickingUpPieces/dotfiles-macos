@@ -6,6 +6,7 @@
 # Check if on current display is now a fullscreen window --> Then the previous space where window was before is empty, if it was the only window. Don't delete this space then.
 yabai -m query --spaces --display | \
     # Check if a space is in native-fullscreen
+<<<<<<< HEAD
     jq -re 'map(select(."is-native-fullscreen" == false)) | length > 1' \
     && yabai -m query --spaces | \
     # Check for a space with no windows AND isn't focused at the moment
