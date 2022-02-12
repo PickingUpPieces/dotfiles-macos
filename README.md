@@ -15,7 +15,7 @@ I've tried to add the scratchpad functionality to macos. You can find two script
 #### Alternative Menu Bar
 There are various options for an alternative menu bar (Options to display current focused space):
 
-1. [Uebersicht](https://github.com/felixhageloh/uebersicht ) with [simple-bar](https://github.com/Jean-Tinland/simple-bar): Javascript based bar. Uebersicht can be used for other fancy widgets as well. Compared to the other solutions, it is quiet heavy and has a little delay, but it's the most beautiful and feature rich option.
+1. [Uebersicht](https://github.com/felixhageloh/uebersicht ) with [simple-bar](https://github.com/Jean-Tinland/simple-bar) (or any other Uebersicht bar): Javascript based bar. Uebersicht can be used for other fancy widgets as well. Compared to the other solutions, it is quiet heavy and has a little delay, but it's the most beautiful and feature rich option.
 
 2. [Spacebar](https://github.com/cmacrae/spacebar): Minimal bar written in c. Very responsive, but very limited options for adding information.
 
