@@ -5,6 +5,7 @@
 
 scratchpad_id=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app==$program).id')
 
+# TODO: Safe window id of current focused window before opening the scratchpad. Set this ID as env variable. This can be used to focus the correct window again when two or more scratchpad windows have been openend.
 
 if [[ "$scratchpad_id" -lt 1 ]]; then
   scratchpad_id=$(open -a "$1" | awk '{print $NF}')
@@ -22,7 +23,7 @@ else
   else
       # TODO Check if current focused window isn't minimized and is on the current space
       # TODO If not, focus current space; Deals with the problem of double opened scratchpad windows
-      yabai -m window --focus first
+    yabai -m window --focus recent
     yabai -m window "$scratchpad_id" --minimize
   fi
 fi
