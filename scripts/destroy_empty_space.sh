@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
 space=$(yabai -m query --spaces | jq --arg recent_space "$YABAI_RECENT_SPACE_ID" '.[] | select(.id == ($recent_space|tonumber))')
 
-# Check only windows on current leaft space --> space_changed event
+# Check only windows on current left space --> space_changed event
  window_ids=$(echo $space | jq -re '.windows | .[]')
  minimized_windows=0
 
@@ -17,6 +16,6 @@ else
 fi
 
 if [[ "$minimized_windows" -eq "${#window_ids[@]}" ]] && [[ $(echo $space | jq 'if ."is-native-fullscreen" and ."is-visible" == false and ."has-focus" == false then 1 else 0 end') -eq 0 ]]; then
-    # echo "Destroy Space ID " $(echo $space | jq '.index') 
+    #echo "Destroy Space ID" $(echo $space | jq '.index') 
     yabai -m space "$(echo $space | jq '.index')" --destroy
 fi
