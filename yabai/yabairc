@@ -123,4 +123,7 @@ yabai -m signal --add event=display_changed action="yabai -m window --focus \$(y
 # 2. If not, focus first window on the display
 # Alternative: Check for window in fullscreen and focus this window
 # On window_destroy, check if other window is focused; If not, check if it's possible to focus window under mouse; If not, Focus one window on other space
-# yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
+
+# Source: https://github.com/koekeishiya/yabai/issues/1012
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) || yabai -m window --focus first"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) || yabai -m window --focus first"
