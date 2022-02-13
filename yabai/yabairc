@@ -97,7 +97,7 @@ yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
 
 # Rules for specific space assignment
-yabai -m rule --add app="^Mail$" space=3
+#yabai -m rule --add app="^Mail$" space=3
 
 
 # ====== List of signals =========================
@@ -106,7 +106,7 @@ yabai -m rule --add app="^Mail$" space=3
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
 
 # Minimize Scratchpad windows, when focus is changed
-#yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
 #yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
 
@@ -119,7 +119,7 @@ yabai -m signal --add event=space_changed action="yabai -m window --focus \$(yab
 yabai -m signal --add event=display_changed action="yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id)"
 
 # On window_destroy, check if other window is focused; If not, check if it's possible to focus window under mouse; If not, Focus one window on other space
-#yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
+# yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
 
 # TODO Write script that checks when a window is destroyed, if a winodow is focused on the current workspace which isn't minimized.
 # If not, focus first window on space
