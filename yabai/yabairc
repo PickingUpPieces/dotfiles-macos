@@ -131,8 +131,8 @@ yabai -m signal --add event=window_destroyed action="yabai -m query --windows --
 #yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) || yabai -m window --focus first"
 
 
-# TODO: macOS auto-focuses the focused window n-1 when window n gets closed
-# yabai focused correct window with rule above, but I think macOS overules this behaviour
-# Workaround 
 # https://github.com/koekeishiya/yabai/issues/485
 # https://github.com/koekeishiya/yabai/issues/878
+yabai -m signal --add event=space_changed action="sleep 1 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
+yabai -m signal --add event=window_destroyed action="yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
+yabai -m signal --add event=application_terminated action="yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
