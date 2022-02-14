@@ -2,28 +2,22 @@
 # Not so generic script
 # When a scratchpad window isn't focused anymore, minimize it
 
-scratchpad_id[0]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="Slack").id')
-scratchpad_id[1]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="Rocket.Chat").id')
-scratchpad_id[2]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="Bitwarden").id')
-scratchpad_id[3]=$(yabai -m query --windows | jq --arg program "$1" '.[] | select(.app=="TickTick").id')
-
 # Some backoff so focused_window is the right one
 sleep 0.2
 
+scratchpad_apps=("Slack" "Rocket.Chat" "Bitwarden" "TickTick")
+
 focused_window=$(yabai -m query --windows --window | jq '.id')
 
-for i in 0 1 2 3 
+for scratchpad_app in "${scratchpad_apps[@]}" 
 do
-    # Check if application is even started
-    if [[ "${scratchpad_id[$i]}" -ne '' ]]; then
-        # Check if focused window at the moment isn't the scratchpad_id
-        if [[ "$focused_window" -ne "${scratchpad_id[$i]}" ]]; then
-            # Check if window is already minimized --> Due to performance maybe just minimize every window
-            # is_minimized=$(yabai -m query --windows --window "${scratchpad_id[$i]}" | jq '.minimized')
+    scratchpad_id=$(yabai -m query --windows | jq --arg app "$scratchpad_app" '.[] | select(.app==$app).id')
 
-            #if [[ "$is_minimized" -ne 1 ]]; then
-            yabai -m window "${scratchpad_id[$i]}" --minimize
-            #fi
+    if [[ ! -z "$scratchpad_id" ]]; then
+        if [[ "$focused_window" -ne "$scratchpad_id" ]]; then
+            # Due to performance just minimize every scratchpad window
+            yabai -m window $scratchpad_id --minimize
         fi
     fi
 done
+
