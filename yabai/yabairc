@@ -107,9 +107,9 @@ yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:
 yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
 
 # Minimize Scratchpad windows, when focus is changed
-#yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
-#yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
-#yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
 
 
 # Source: https://github.com/koekeishiya/yabai/issues/719

@@ -23,7 +23,8 @@ else
     yabai -m window --focus "$scratchpad_id"
     yabai -m window --grid 6:6:1:1:4:4
   else
-    yabai -m window --focus recent
     yabai -m window "$scratchpad_id" --minimize
+    window_id=$(yabai -m query --windows --space | jq 'map(select(."is-minimized" == false and ."is-hidden" == false)) | .[0].id')
+    yabai -m window --focus $window_id
   fi
 fi

@@ -23,7 +23,8 @@ else
   else
       # TODO Check if current focused window isn't minimized and is on the current space
       # TODO If not, focus current space; Deals with the problem of double opened scratchpad windows
-    yabai -m window --focus recent
     yabai -m window "$scratchpad_id" --minimize
+    window_id=$(yabai -m query --windows --space | jq 'map(select(."is-minimized" == false and ."is-hidden" == false)) | .[0].id')
+    yabai -m window --focus $window_id
   fi
 fi
