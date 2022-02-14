@@ -41,6 +41,7 @@ when 'clear'
 
 when 'read'
   space_ids = read_file
+  log "read space id: #{space_ids[0]}"
   puts space_ids[0]
 
 else
