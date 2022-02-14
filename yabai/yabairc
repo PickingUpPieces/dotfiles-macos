@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # ====== Startup ===============================
 # the scripting-addition must be loaded manually if
@@ -79,8 +79,6 @@ yabai -m rule --add app="^Stats" manage=off
 yabai -m rule --add app="^AirDrop" manage=off
 yabai -m rule --add app="^Tunnelblick" manage=off
 
-# TODO Define list of applications which should be displayed in grid and add them to minimize_scratchpad script
-# List important as well for applying grid when moving these windows to another desktop
 yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4
@@ -89,50 +87,71 @@ yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:
 yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above 
 
-	
+# Rules for specific space assignment
+#yabai -m rule --add app="^Mail$" space=3
+
+
+
+#######################	
+# Cleanup empty spaces
+#######################	
+yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
+
+
+
+#######################	
 # Scratchpad
+#######################	
+function minimize_scratchpad_apps {
+    # FIXME: Add here the application names of the desired scratchpad applications
+    SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat) 
+
+    sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
+}
+
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="TickTick_windows" app="^TickTick$" title='Untitled' manage=off 
 yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
 
-# Rules for specific space assignment
-#yabai -m rule --add app="^Mail$" space=3
-
-
-# ====== List of signals =========================
-
-# Destroy empty spaces
-yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
-
 # Minimize Scratchpad windows, when focus is changed
-yabai -m signal --add event=window_focused action="sh ~/.config/scripts/minimize_scratchpad.sh"
-yabai -m signal --add event=space_changed action="sh ~/.config/scripts/minimize_scratchpad.sh"
-yabai -m signal --add event=application_front_switched action="sh ~/.config/scripts/minimize_scratchpad.sh"
+yabai -m signal --add event=window_focused action="${functions[minimize_scratchpad_apps]}"
+yabai -m signal --add event=space_changed action="${functions[minimize_scratchpad_apps]}"
 
 
-# Source: https://github.com/koekeishiya/yabai/issues/719
-function get_recent_focused_window {
-    window_id = yabai -m query --windows --space | jq 'map(select(."is-minimized" == false and ."is-hidden" == false)) | .[0].id'
-    return $window_id
+
+#######################	
+# Focus
+#######################	
+# The following signals are for ensuring that the correct windows/spaces are focused after e.g. another window is closed
+# https://github.com/koekeishiya/yabai/issues/719
+# https://github.com/koekeishiya/yabai/issues/485
+# https://github.com/koekeishiya/yabai/issues/878
+# https://github.com/koekeishiya/yabai/issues/1012
+# https://github.com/koekeishiya/yabai/issues/475
+
+# Returns the recent window id for the current focused space, but ignores minimized/hidden windows
+function focus_recent_window {
+    window_id=$(yabai -m query --windows --space | jq 'map(select(."is-minimized" == false and ."is-hidden" == false)) | .[0].id')
+    yabai -m window --focus $window_id
 }
 
 # focus window after active space changes
-yabai -m signal --add event=space_changed action="yabai -m window --focus \${functions[get_recent_focused_window]}"
+#yabai -m signal --add event=space_changed action="${functions[focus_recent_window]}"
  
 # focus window after active display changes
-yabai -m signal --add event=display_changed action="yabai -m window --focus \${functions[get_recent_focused_window]}"
+#yabai -m signal --add event=display_changed action="${functions[focus_recent_window]}"
 
-
-# Source: https://github.com/koekeishiya/yabai/issues/1012
 # Through v4 application_terminated should trigger window_destroyed as well
-yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus \${functions[get_recent_focused_window]} || yabai -m window --focus first"
-yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus \${functions[get_recent_focused_window]} || yabai -m window --focus first"
+yabai -m signal --add event=window_destroyed action="${functions[focus_recent_window]}"
+yabai -m signal --add event=application_terminated action="${functions[focus_recent_window]}"
 
 
-# https://github.com/koekeishiya/yabai/issues/485
-# https://github.com/koekeishiya/yabai/issues/878
+
+#######################	
+# Anti-swoosh
+#######################	
 # Sleep delay so auto-swoosh by macOS is not the last space AND due to asynchronous behaviour of signals
 yabai -m signal --add event=space_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
 yabai -m signal --add event=display_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"

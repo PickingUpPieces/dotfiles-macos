@@ -4,8 +4,7 @@
 
 # Some backoff so focused_window is the right one
 sleep 0.2
-
-scratchpad_apps=("Slack" "Rocket.Chat" "Bitwarden" "TickTick")
+scratchpad_apps=("$@")
 
 focused_window=$(yabai -m query --windows --window | jq '.id')
 
