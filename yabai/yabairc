@@ -138,14 +138,14 @@ function focus_recent_window {
 }
 
 # focus window after active space changes
-#yabai -m signal --add event=space_changed action="${functions[focus_recent_window]}"
+# yabai -m signal --add event=space_changed action="${functions[focus_recent_window]}"
  
 # focus window after active display changes
 #yabai -m signal --add event=display_changed action="${functions[focus_recent_window]}"
 
-# Through v4 application_terminated should trigger window_destroyed as well
+# Through yabai v4 application_terminated should trigger window_destroyed as well
 yabai -m signal --add event=window_destroyed action="${functions[focus_recent_window]}"
-yabai -m signal --add event=application_terminated action="${functions[focus_recent_window]}"
+# yabai -m signal --add event=application_terminated action="${functions[focus_recent_window]}"
 
 
 

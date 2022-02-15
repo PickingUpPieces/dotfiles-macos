@@ -6,15 +6,17 @@
 sleep 0.2
 scratchpad_apps=("$@")
 
-focused_window=$(yabai -m query --windows --window | jq '.id')
+focused_window_id=$(yabai -m query --windows --window | jq '.id')
 
 for scratchpad_app in "${scratchpad_apps[@]}" 
 do
-    scratchpad_id=$(yabai -m query --windows | jq --arg app "$scratchpad_app" '.[] | select(.app==$app).id')
+    scratchpad_window=$(yabai -m query --windows | jq --arg app "$scratchpad_app" '.[] | select(.app==$app)')
 
-    if [[ ! -z "$scratchpad_id" ]]; then
-        if [[ "$focused_window" -ne "$scratchpad_id" ]]; then
-            # Due to performance just minimize every scratchpad window
+    if [[ ! -z "$scratchpad_window" ]]; then
+        scratchpad_id=$(echo $scratchpad_window | jq '.id')
+        scratchpad_minimized=$(echo $scratchpad_window | jq '."is-minimized"')
+
+        if [[ "$focused_window_id" -ne "$scratchpad_id" ]] && [[ "$scratchpad_minimized" == "false" ]]; then
             yabai -m window $scratchpad_id --minimize
         fi
     fi
