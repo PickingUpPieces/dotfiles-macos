@@ -88,6 +88,9 @@ yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:
 yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above 
 
+# Rule resizing grid windows when moving to bigger screen
+yabai -m signal --add event=window_focused app="Spotify|Calendar|Messages|Finderall" action="yabai -m window $YABAI_WINDOW_ID --grid 6:6:1:1:4:4"
+
 # Rules for specific space assignment
 #yabai -m rule --add app="^Mail$" space=3
 
@@ -103,8 +106,6 @@ yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_e
 #######################	
 # Scratchpad
 #######################	
-
-
 function minimize_scratchpad_apps {
     # FIXME: Add here the application names of the desired scratchpad applications
     SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat) 
@@ -115,13 +116,14 @@ function minimize_scratchpad_apps {
 # --grid needed when application starts
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="TickTick" app="^TickTick$" manage=off 
+yabai -m rule --add label="TickTick" app="^TickTick$" manage=off # For other TickTick sub-windows 
 yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
 
 # Minimize Scratchpad windows, when focus is changed
 yabai -m signal --add event=window_focused action="${functions[minimize_scratchpad_apps]}"
 yabai -m signal --add event=space_changed action="${functions[minimize_scratchpad_apps]}"
+yabai -m signal --add event=display_changed action="${functions[minimize_scratchpad_apps]}"
 
 
 
@@ -135,23 +137,24 @@ yabai -m signal --add event=space_changed action="${functions[minimize_scratchpa
 # https://github.com/koekeishiya/yabai/issues/1012
 # https://github.com/koekeishiya/yabai/issues/475
 
-
 # Returns the recent window id for the current focused space, but ignores minimized/hidden windows
 function focus_recent_window {
     window_id=$(yabai -m query --windows --space | jq 'map(select(."is-minimized" == false and ."is-hidden" == false)) | .[0].id')
-    yabai -m window --focus $window_id
+    # Check for $window_id == null; then just focus the space
+    if [[ "$window_id" != 'null' ]]; then
+        yabai -m window --focus $window_id
+    fi
 }
 
-# focus window after active space changes
+# focus window after active space/display changes (space_changed isn't triggered when the display is changed)
 yabai -m signal --add event=space_changed action="${functions[focus_recent_window]}"
-
-# Through yabai v4 application_terminated should trigger window_destroyed as well
-yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="yabai -m query --windows --window &> /dev/null || ${functions[focus_recent_window]}"
+yabai -m signal --add event=display_changed action="${functions[focus_recent_window]}"
 
 # Spotlight triggering this event as well which focuses wrong window
 # Add negative lookup regex for "Spotlight"
 # Negative lookup generator: http://www.formauri.es/personal/pgimeno/misc/non-match-regex
-yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="yabai -m query --windows --window &> /dev/null ||  ${functions[focus_recent_window]}"
+yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="${functions[focus_recent_window]}"
+yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="${functions[focus_recent_window]}"
 
 
 
@@ -161,7 +164,6 @@ yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l
 # Sleep delay so auto-swoosh by macOS is not the last space AND due to asynchronous behaviour of signals
 yabai -m signal --add event=space_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
 yabai -m signal --add event=display_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
-yabai -m signal --add event=application_terminated action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
 
-# Deactivated due to Spotlight triggering window_destroyed as well
+yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
 yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
