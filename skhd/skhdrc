@@ -59,16 +59,16 @@ shift + lalt - k : yabai -m window --warp north
 shift + lalt - l : yabai -m window --warp east
 
 # Window to Workspace
-# TODO: For not managed windows like Spotify (which are not in scratchpad --> use --grid functionality for moviing window
-shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 && yabai -m window --focus recent
-shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 && yabai -m window --focus recent
-shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 && yabai -m window --focus recent
-shift + lalt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 && yabai -m window --focus recent
-shift + lalt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 && yabai -m window --focus recent
-shift + lalt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 && yabai -m window --focus recent
-shift + lalt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 && yabai -m window --focus recent
-shift + lalt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 && yabai -m window --focus recent
-shift + lalt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 && yabai -m window --focus recent
+# TODO: For not managed windows like Spotify (which are not in scratchpad --> use --grid functionality for moving window
+shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 
+shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2
+shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 
+shift + lalt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 
+shift + lalt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 
+shift + lalt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 
+shift + lalt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 
+shift + lalt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 
+shift + lalt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 
 
 # Rotate windows clockwise and anticlockwise
 alt - r         : yabai -m space --rotate 90
