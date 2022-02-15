@@ -4,6 +4,8 @@ My current dotfiles for making life more productive.
 
 ## Tiling Experience
 I love i3 (or tiling window managers in general). That's why I tried to create an as close as possible experience on macos.
+Due to the signals happening asynchronously, there are definetly some bugs/glitches in general but especially when changing focus/spaces really quick after another.
+Since this config tries to outsmart the native window manager at some points, this can lead to problems as well.
 
 ![Screenshot](screenshot.png)
 
@@ -27,7 +29,8 @@ I've tried to add the scratchpad functionality to macos. You can find two script
 For adding a new application which should open in "scratchpad"-mode
 1. Find out the application name (sometimes not as obvious as it should). Go to a space where an instance (a window) of the application is running. Open a terminal and enter ` yabai -m query --windows --space | grep app`.
 2. Choose a key binding that suits you and add it to _skhdrc_ e.g. `alt - b : ~/.config/scripts/scratchpad.sh $application_name` (e.g. Bitwarden)
-3. If you want to leaverage the auto-minimize functionality, add the _$application\_name_ to the `minimize_scratchpad_apps` function in the _yabairc_ file.
+3. Tell yabai that it shouldn't manage this application by adding a rule to the _yabairc_ file e.g. `yabai -m rule --add label="TickTick" app="^TickTick$" manage=off `
+4. If you want to leaverage the auto-minimize functionality, add the _$application\_name_ to the `minimize_scratchpad_apps` function in the _yabairc_ file.
 
 
 ### Empty space cleanup
@@ -36,6 +39,7 @@ For convenience the script `destroy_empty_space.sh` is triggered by every space 
 
 ### Anti-swoosh 
 When a window gets terminated the default macOS behaviour is switching to the recent focused window. Even if this is on another space. Since this is not very intuitive (personal preference) this is changed by the ruby script `space_focus.rb`. If this isn't desired then you have to deactivate everything in the _yabairc_ file under _Anti-swoosh_.
+Since the original macOS behaviour can't be deactivated, you can see that spaces are changed. With the script you should at least end up on the previous space.
 
 
 ### Alternative Menu Bar
