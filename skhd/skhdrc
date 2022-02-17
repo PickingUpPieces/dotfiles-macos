@@ -7,7 +7,7 @@ alt - return : ~/.config/scripts/open_iterm.sh
 
 # TODO Script for opening firefox new window. At the moment new window on space where previous firefox window is opened
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
-shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox
+shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox --new-window
 
 # Restart Yabai
 shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
