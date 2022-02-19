@@ -5,9 +5,8 @@
 # iTerm2
 alt - return : ~/.config/scripts/open_iterm.sh
 
-# TODO Script for opening firefox new window. At the moment new window on space where previous firefox window is opened
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
-shift + alt - return : /Applications/Firefox.app/Contents/MacOS/firefox --new-window
+shift + alt - return : ~/.config/scripts/open_firefox.sh
 
 # Restart Yabai
 shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
@@ -59,7 +58,6 @@ shift + lalt - k : yabai -m window --warp north
 shift + lalt - l : yabai -m window --warp east
 
 # Window to Workspace
-# TODO: For not managed windows like Spotify (which are not in scratchpad --> use --grid functionality for moving window
 shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 
 shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2
 shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 

@@ -52,7 +52,7 @@ yabai -m config auto_balance                on
 
 # ====== Border settings =======================
 
-yabai -m config window_border               off # Not used because of BigSur round corners
+yabai -m config window_border               off # Not used because of Monterey round corners
 yabai -m config window_border_width         2
 yabai -m config active_window_border_color  "0xE0${focused_border_color}"
 #yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
@@ -79,6 +79,11 @@ yabai -m rule --add app="^Stats" manage=off
 yabai -m rule --add app="^AirDrop" manage=off
 yabai -m rule --add app="^Tunnelblick" manage=off
 yabai -m rule --add app="^Spotlight$" layer=above manage=off
+
+# Firefox
+yabai -m rule --add app="^Firefox$" title=".*Launch Application.*" manage=off 
+yabai -m rule --add app="^Firefox$" title=".*Opening.*" manage=off 
+yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" manage=off 
 
 yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
