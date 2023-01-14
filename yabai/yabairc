@@ -76,7 +76,7 @@ yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
 yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add app="^Stats" manage=off
-yabai -m rule --add app="^AirDrop" manage=off
+yabai -m rule --add app="^AirDrop$" manage=off
 yabai -m rule --add app="^Tunnelblick" manage=off
 yabai -m rule --add app="^Spotlight$" layer=above manage=off
 
@@ -115,7 +115,7 @@ function minimize_scratchpad_apps {
     # FIXME: Add here the application names of the desired scratchpad applications
     SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat) 
 
-    sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
+    #sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
 }
 
 # --grid needed when application starts
@@ -151,9 +151,10 @@ function focus_recent_window {
     fi
 }
 
-# focus window after active space/display changes (space_changed isn't triggered when the display is changed)
-yabai -m signal --add event=space_changed action="${functions[focus_recent_window]}"
-yabai -m signal --add event=display_changed action="${functions[focus_recent_window]}"
+# focus window after active space/display changes 
+# IMPORTANT: space_changed isn't triggered when the display is changed
+#yabai -m signal --add event=space_changed action="sleep 0.1 && ${functions[focus_recent_window]}"
+#yabai -m signal --add event=display_changed action="sleep 0.1 && ${functions[focus_recent_window]}"
 
 # Spotlight triggering this event as well which focuses wrong window
 # Add negative lookup regex for "Spotlight"
@@ -167,8 +168,8 @@ yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l
 # Anti-swoosh
 #######################	
 # Sleep delay so auto-swoosh by macOS is not the last space AND due to asynchronous behaviour of signals
-yabai -m signal --add event=space_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
-yabai -m signal --add event=display_changed action="sleep 0.5 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
+yabai -m signal --add event=space_changed action="sleep 0.4 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
+yabai -m signal --add event=display_changed action="sleep 0.4 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
 
 yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
 yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"

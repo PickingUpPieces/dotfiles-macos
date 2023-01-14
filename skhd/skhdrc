@@ -6,7 +6,7 @@
 alt - return : ~/.config/scripts/open_iterm.sh
 
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
-shift + alt - return : ~/.config/scripts/open_firefox.sh
+shift + alt - return : bash -c 'MOZ_DISABLE_SAFE_MODE_KEY=0 && open -na Firefox'
 
 # Restart Yabai
 shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'

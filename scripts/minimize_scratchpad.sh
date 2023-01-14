@@ -17,6 +17,7 @@ do
         scratchpad_minimized=$(echo $scratchpad_window | jq '."is-minimized"')
 
         if [[ "$focused_window_id" -ne "$scratchpad_id" ]] && [[ "$scratchpad_minimized" == "false" ]]; then
+            # TODO: Check if process is same and not window id. Otherwise 'subwindows' lead to closing the main scratchpad_window
             yabai -m window $scratchpad_id --minimize
         fi
     fi
