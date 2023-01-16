@@ -25,7 +25,3 @@ sketchybar --add alias "Control Centre,Sound" right                      \
                               align=right                                \
                               click_script="$PLUGIN_DIR/volume_click.sh"
 
-sketchybar --add bracket status brew github.bell volume volume_alias \
-           --set status background.color=$BACKGROUND_1               \
-                        background.border_color=$BACKGROUND_2        \
-                        background.border_width=2
