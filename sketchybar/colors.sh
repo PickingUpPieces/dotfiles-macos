@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env
 
 # Color Palette
 export BLACK=0xff181926

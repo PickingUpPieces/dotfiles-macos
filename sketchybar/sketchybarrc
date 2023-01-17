@@ -1,10 +1,13 @@
 #!/bin/sh
+# FIXME: Change this to the correct english version: Center vs Centre
+CONTROL_CENTER_NAME="Control Centre"
 
 source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
 source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 
 ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
+
 
 FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 PADDINGS=3 # All paddings use this value (icon, label, background)
@@ -56,12 +59,11 @@ source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/front_app.sh"
 
-# Center
-
 # Right
 source "$ITEM_DIR/calendar.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
+source "$ITEM_DIR/mic.sh"
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/right_bracket.sh"
 source "$ITEM_DIR/spotify.sh"

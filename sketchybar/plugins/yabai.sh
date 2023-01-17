@@ -1,4 +1,5 @@
 #!/bin/sh
+HIDE_APPLICATION_ICONS=(Slack Bitwarden TickTick Rocket.Chat Finder)
 
 window_state() {
   source "$HOME/.config/sketchybar/colors.sh"
@@ -50,10 +51,8 @@ windows_on_spaces () {
       apps=$(yabai -m query --windows --space $space | jq -r ".[].app")
       if [ "$apps" != "" ]; then
         while IFS= read -r app; do
-	      # TODO: Check if app is scratchpad app
-          SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat Finder)
           TEST=1 # true as default
-          for sapp in "${SCRATCHPAD_APPS[@]}" 
+          for sapp in "${HIDE_APPLICATION_ICONS[@]}" 
           do
             if [[ "$sapp" = "$app" ]]; then
                 TEST=0 # set to false , if scratchpad window

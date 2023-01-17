@@ -20,7 +20,7 @@ Features of this config:
 ### Dependencies
 - [yabai](https://github.com/koekeishiya/yabai) (tiling window manager) 
 - [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon) 
-- [spacebar](https://github.com/cmacrae/spacebar) (lightweight menu bar)
+- [SketchyBar](https://github.com/FelixKratz/SketchyBar (alternative menu bar)
 - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
 
 
@@ -49,15 +49,23 @@ There are various options for an alternative menu bar (Options to display curren
 
 2. [Spacebar](https://github.com/cmacrae/spacebar): Minimal bar written in c. Very responsive, but very limited options for adding information.
 
-3. [Bitbar](https://github.com/matryer/bitbar) with [shell script](https://github.com/SxC97/Yabai-Spaces): Just puts output of shell scripts (In this case all spaces listed) in the normal macos Menu bar. 
+3. [SketchyBar](https://github.com/FelixKratz/SketchyBar): This bar project aims to create a highly flexible, customizable, fast menu bar.
 
-For the first two solutions, you have to hide macos bar (similar to dock): `System Preferences` --> `Dock & Menu Bar` --> `Automatically hide and show Menu Bar`
+4. [Bitbar](https://github.com/matryer/bitbar) with [shell script](https://github.com/SxC97/Yabai-Spaces): Just puts output of shell scripts (In this case all spaces listed) in the normal macos Menu bar. 
 
-In this repository spacebar is used.
+For the first three solutions, you have to hide macos bar (similar to dock): `System Preferences` --> `Dock & Menu Bar` --> `Automatically hide and show Menu Bar`
+
+In this repository *SketchyBar* is used.
+*Setup of SketchyBar*:
+1. Install required dependencies:
+    - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
+    - [sf-symbols](https://formulae.brew.sh/cask/sf-symbols) (font for the icons)
+    - [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font): Install with `curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf`
 
 ### Credits
 Like most/all dotfiles, a lot of stuff has been found somewhere on the internet (basically reddit or github). Sorry for not crediting!
 I've started my yabai and skhd config with https://github.com/Julian-Heng/chunkwm-yabai-config.
+The sketchybar config is based on https://github.com/FelixKratz/dotfiles.
 
 Also interesting:
 - https://github.com/camspiers/dotfiles

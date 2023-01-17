@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env
 
 # General Icons
 LOADING=􀖇
@@ -37,3 +37,7 @@ BATTERY_50=􀺶
 BATTERY_25=􀛩
 BATTERY_0=􀛪
 BATTERY_CHARGING=􀢋
+
+# Microfon
+MICROFON_ON=
+MICROFON_OFF=
