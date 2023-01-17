@@ -15,7 +15,12 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ====== Variables =============================
 
-gaps_top="29" # spacebar is at the top; Apple Menu Bar is 25px
+if [[ $(uname -m) == 'arm64' ]]; then
+    gaps_top="4" # spacebar is at the top; Apple Menu Bar is 25px
+else
+    gaps_top="29" # for none notch
+fi
+
 gaps_bottom="4"
 gaps_left="4"
 gaps_right="4"
@@ -63,7 +68,7 @@ yabai -m config normal_window_border_color  "0x00${normal_border_color}"
 # Don't manage Preferences
 yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1
 yabai -m rule --add title='Force Quit Applications$' manage=off layer=above grid=3:3:1:1:1:1
-yabai -m rule --add app='^System Preferences$' manage=off layer=above grid=3:3:1:1:1:1
+yabai -m rule --add app='^System Settings$' manage=off layer=above grid=4:3:1:1:1:2
 yabai -m rule --add app="^System Information" manage=off
 
 # Other Stuff
@@ -104,7 +109,7 @@ yabai -m signal --add event=window_focused app="Spotify|Calendar|Messages|Finder
 #######################	
 # Cleanup empty spaces
 #######################	
-yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
+yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh && sketchybar --trigger windows_on_spaces && sketchybar --trigger window_focus"
 
 
 
@@ -115,7 +120,7 @@ function minimize_scratchpad_apps {
     # FIXME: Add here the application names of the desired scratchpad applications
     SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat) 
 
-    #sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
+    sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
 }
 
 # --grid needed when application starts
@@ -173,3 +178,12 @@ yabai -m signal --add event=display_changed action="sleep 0.4 && yabai -m query 
 
 yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
 yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.4 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
+
+
+
+#######################	
+# Sketchybar
+#######################	
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
