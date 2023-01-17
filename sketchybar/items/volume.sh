@@ -20,7 +20,7 @@ sketchybar --add alias "Control Centre,Sound" right                      \
                               label.drawing=off                          \
                               alias.color=$WHITE                         \
                               padding_right=0                            \
-                              padding_left=-5                            \
+                              padding_left=0                             \
                               width=50                                   \
                               align=right                                \
                               click_script="$PLUGIN_DIR/volume_click.sh"

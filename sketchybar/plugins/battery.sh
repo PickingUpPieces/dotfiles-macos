@@ -26,7 +26,6 @@ esac
 
 if [[ $CHARGING != "" ]]; then
   ICON=$BATTERY_CHARGING
-  DRAWING=off
 fi
 
 sketchybar --set $NAME drawing=$DRAWING icon="$ICON" icon.color=$COLOR
