@@ -10,7 +10,7 @@ Since this config tries to outsmart the native window manager at some points, th
 
 
 Features of this config:
-1. Added scratchpad functionality
+1. Scratchpad functionality
 2. Automatic empty space cleanup
 3. Anti-window-swoosh (macOS changes spaces without asking)
 4. More intuitive window focusing
@@ -24,7 +24,7 @@ Features of this config:
 ### Dependencies
 - [yabai](https://github.com/koekeishiya/yabai) (tiling window manager) 
 - [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon) 
-- [SketchyBar](https://github.com/FelixKratz/SketchyBar (alternative menu bar)
+- [SketchyBar](https://github.com/FelixKratz/SketchyBar) (alternative menu bar)
 - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
 
 
