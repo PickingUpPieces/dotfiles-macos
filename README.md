@@ -23,6 +23,9 @@ Features of this config:
 - [SketchyBar](https://github.com/FelixKratz/SketchyBar (alternative menu bar)
 - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
 
+### Known Issues
+- Subwindows of scratchpads are currently leading to minimizing the main window (e.g. Bitwarden).
+
 
 ### Scratchpad 
 I've tried to add the scratchpad functionality to macos. You can find two scripts (`scratchpad.sh`, `minimize_scratchpad.sh`), which open (and closing, when out of focus) certain applications.
@@ -65,6 +68,7 @@ In this repository *SketchyBar* is used.
     - WiFi
     - Volume
     - Battery (Without percentage)
+
 More details can be found at https://github.com/FelixKratz/dotfiles.
 Note: Only applications which aren't hidden are shown in the left menu bar as icon. If you want all applications which are on the specific space/desktop, you have to edit the file `sketchybar/plugins/yabai.sh`.
 
