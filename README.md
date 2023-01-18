@@ -1,6 +1,5 @@
 # Dotfiles
-My current dotfiles for making life more productive.
-
+My current dotfiles for making life more fun.
 
 ## Tiling Experience
 I love i3 (or tiling window managers in general). That's why I tried to create an as close as possible experience on macos.
@@ -17,14 +16,16 @@ Features of this config:
 4. More intuitive window focusing
 
 
+### Known Issues
+- Setting automatically the correct focus on a window is sometimes not working. 
+- SketchyBar doesn't reflect a newly created desktop well. 
+
+
 ### Dependencies
 - [yabai](https://github.com/koekeishiya/yabai) (tiling window manager) 
 - [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon) 
 - [SketchyBar](https://github.com/FelixKratz/SketchyBar (alternative menu bar)
 - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
-
-### Known Issues
-- Subwindows of scratchpads are currently leading to minimizing the main window (e.g. Bitwarden).
 
 
 ### Scratchpad 

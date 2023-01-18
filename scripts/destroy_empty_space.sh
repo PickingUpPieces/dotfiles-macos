@@ -12,18 +12,13 @@ windows=$(yabai -m query --windows --space $space_index)
 amount_minimized_windows=$(echo $windows | jq -re 'map(select(."is-minimized" or ."is-hidden")) | length') 
 amount_all_windows=$(echo $windows | jq -re 'length')
 
- # Check if no windows are on the space --> Set minimized_windows equal 1 so its same length as window_ids
-#if [[ $minimized_windows -eq 0 ]]; then
-#    minimized_windows=1
-#fi
-
 if [ "$amount_minimized_windows" -eq "$amount_all_windows" ] && [ "$(echo $space | jq 'if ."is-native-fullscreen" == true or ."is-visible" == true or ."has-focus" == true then 1 else 0 end')" -eq "0" ]; then
-    #echo "Destroy Space ID" $space_index) 
+    #echo "Destroy Space ID" $space_index
     yabai -m space $space_index --destroy
 
     # FIXME: Delete this if you aren't using spacebar
     # Updating spacebar for reflecting destroyed desktops
     # https://github.com/cmacrae/spacebar/issues/82
-    spacebar -m config spaces on
+    # spacebar -m config spaces on
 fi
 

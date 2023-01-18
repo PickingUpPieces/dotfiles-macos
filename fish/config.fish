@@ -6,12 +6,16 @@ set SHELL /bin/bash
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # https://stackoverflow.com/questions/54528115/unable-to-extract-tar-file-though-ansible-unarchive-module-in-macos
-export PATH="$HOME/.cargo/bin:/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
 
+# Flutter development
 export PATH="$PATH:/usr/local/opt/flutter/bin/"
+
+# TODO: Only for macOS
+export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
 # Add brew path to PATH
 if type -q brew 
@@ -47,3 +51,6 @@ alias log="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d
 alias cfg="git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias push="git push"
 
+# BEGIN ANSIBLE MANAGED BLOCK
+set -Ua fish_user_paths $HOME/.cargo/bin
+# END ANSIBLE MANAGED BLOCK

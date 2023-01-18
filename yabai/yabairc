@@ -15,8 +15,9 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ====== Variables =============================
 
+# Check for Notch on MacBook
 if [[ $(uname -m) == 'arm64' ]]; then
-    gaps_top="4" # spacebar is at the top; Apple Menu Bar is 25px
+    gaps_top="4" # menu bar is at the top; Apple Menu Bar is 25px
 else
     gaps_top="29" # for none notch
 fi
@@ -109,7 +110,7 @@ yabai -m signal --add event=window_focused app="Spotify|Calendar|Messages|Finder
 #######################	
 # Cleanup empty spaces
 #######################	
-yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh && sketchybar --trigger windows_on_spaces && sketchybar --trigger window_focus"
+yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_empty_space.sh"
 
 
 
@@ -118,7 +119,7 @@ yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_e
 #######################	
 function minimize_scratchpad_apps {
     # FIXME: Add here the application names of the desired scratchpad applications
-    SCRATCHPAD_APPS=(Slack Bitwarden TickTick Rocket.Chat) 
+    SCRATCHPAD_APPS=(Slack Bitwarden TickTick) 
 
     sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
 }
@@ -128,7 +129,6 @@ yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:
 yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4
 yabai -m rule --add label="TickTick" app="^TickTick$" manage=off # For other TickTick sub-windows 
 yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="Rocket.Chat" app="^Rocket.Chat$" manage=off grid=6:6:1:1:4:4
 
 # Minimize Scratchpad windows, when focus is changed
 yabai -m signal --add event=window_focused action="${functions[minimize_scratchpad_apps]}"
@@ -187,3 +187,4 @@ yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"

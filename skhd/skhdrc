@@ -18,7 +18,6 @@ shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.m
 alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
 alt - p : ~/.config/scripts/scratchpad.sh TickTick
 alt - s : ~/.config/scripts/scratchpad.sh Slack
-alt - u : ~/.config/scripts/scratchpad_RocketChat.sh Rocket.Chat
 
 
 ##############################################
