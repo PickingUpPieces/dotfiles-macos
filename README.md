@@ -61,6 +61,12 @@ In this repository *SketchyBar* is used.
     - [jq](https://stedolan.github.io/jq/) (cmd-line json processor)
     - [sf-symbols](https://formulae.brew.sh/cask/sf-symbols) (font for the icons)
     - [sketchybar-app-font](https://github.com/kvndrsslr/sketchybar-app-font): Install with `curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf`
+2. The following items must be activated to show up in the original apple menu bar:
+    - WiFi
+    - Volume
+    - Battery (Without percentage)
+More details can be found at https://github.com/FelixKratz/dotfiles.
+Note: Only applications which aren't hidden are shown in the left menu bar as icon. If you want all applications which are on the specific space/desktop, you have to edit the file `sketchybar/plugins/yabai.sh`.
 
 ### Credits
 Like most/all dotfiles, a lot of stuff has been found somewhere on the internet (basically reddit or github). Sorry for not crediting!
