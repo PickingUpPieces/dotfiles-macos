@@ -10,10 +10,12 @@ args=()
 
 if [ "$SSID" = "" ]; then
     args+=(--set "$NAME" label="N/A" \
-                            label.drawing=on)
+                            label.drawing=on \
+                            alias.color="$RED")
 else
     args+=(--set "$NAME"    label="$SSID" \
-                            label.drawing=on) # remove if you want more detailed info available without hovering
+                            label.drawing=on \
+                            alias.color="$WHITE" )
 fi
 
 sketchybar -m "${args[@]}" > /dev/null

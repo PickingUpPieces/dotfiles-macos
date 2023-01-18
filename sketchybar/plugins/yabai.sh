@@ -1,5 +1,4 @@
-#!/bin/sh
-HIDE_APPLICATION_ICONS=(Slack Bitwarden TickTick Rocket.Chat Finder)
+#!/usr/bin/env bash
 
 window_state() {
   source "$HOME/.config/sketchybar/colors.sh"
@@ -48,19 +47,29 @@ windows_on_spaces () {
     for space in $line
     do
       icon_strip=" "
-      apps=$(yabai -m query --windows --space $space | jq -r ".[].app")
+      apps=$(yabai -m query --windows --space $space | jq -r ".[].id")
       if [ "$apps" != "" ]; then
         while IFS= read -r app; do
-          TEST=1 # true as default
-          for sapp in "${HIDE_APPLICATION_ICONS[@]}" 
-          do
-            if [[ "$sapp" = "$app" ]]; then
-                TEST=0 # set to false , if scratchpad window
-            fi
-          done
-          if [ $TEST -eq 1 ] ; then
-            icon_strip+=" $($HOME/.config/sketchybar/plugins/icon_map.sh "$app")"
+          # DONT SHOW WINDWOS WHICH ARE HIDDEN
+          window=$(yabai -m query --windows --space $space | jq --arg id "$app" '.[] | select(.id==($id|tonumber))')
+          window_app=$(echo $window | jq '.app' | tr -d '"') # Remove quotes from string
+          window_minimized=$(echo $window | jq '."is-minimized"')
+
+          if [[ "$window_minimized" == "false" ]]; then
+             icon_strip+=" $($HOME/.config/sketchybar/plugins/icon_map.sh $window_app)"
           fi
+
+          # ONLY HIDE SCRATCHPAD WINDOWS
+          #TEST=1 # true as default
+          #for sapp in "${HIDE_APPLICATION_ICONS[@]}" 
+          #do
+          #  if [[ "$sapp" = "$app" ]]; then
+          #      TEST=0 # set to false , if scratchpad window
+          #  fi
+          #done
+          #if [ $TEST -eq 1 ] ; then
+          #  icon_strip+=" $($HOME/.config/sketchybar/plugins/icon_map.sh "$app")"
+          #fi
         done <<< "$apps"
       fi
       args+=(--set space.$space label="$icon_strip" label.drawing=on)

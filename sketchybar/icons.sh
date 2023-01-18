@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 
 # General Icons
 LOADING=􀖇
@@ -39,5 +39,5 @@ BATTERY_0=􀛪
 BATTERY_CHARGING=􀢋
 
 # Microfon
-MICROFON_ON=
-MICROFON_OFF=
+MICROFON_ON=􀊱 
+MICROFON_OFF=􀊲 

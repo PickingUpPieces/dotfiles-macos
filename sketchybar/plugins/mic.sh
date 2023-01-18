@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 
 MIC_VOLUME=$(osascript -e 'input volume of (get volume settings)')
 
@@ -9,3 +12,4 @@ elif [[ $MIC_VOLUME -gt 0 ]]; then
     COLOR=$WHITE
 	sketchybar --set $NAME icon=$MICROFON_ON icon.color=$COLOR
 fi
+

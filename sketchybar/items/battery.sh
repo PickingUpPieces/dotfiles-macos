@@ -1,11 +1,11 @@
 #!/bin/sh
 
-sketchybar --add item battery right                             \
-           --set battery script="$PLUGIN_DIR/battery.sh"        \
-                         icon.font="$FONT:Regular:19.0"         \
-                         padding_right=5                        \
-                         padding_left=0                         \
-                         label.drawing=on                       \
-                         update_freq=60                         \
-                         updates=on                             \
+sketchybar --add alias  "$CONTROL_CENTER_NAME,Battery" right    \
+           --rename     "$CONTROL_CENTER_NAME,Battery" battery  \
+           --set        battery icon.drawing=off                   \
+                        alias.color="$WHITE"              \
+                        update_freq=60                         \
+                        updates=on                             \
+                        label.drawing=on                       \
+                        script="$PLUGIN_DIR/battery.sh"        \
             --subscribe battery power_source_change system_woke
