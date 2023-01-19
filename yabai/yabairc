@@ -17,15 +17,15 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # Check for Notch on MacBook
 if [[ $(uname -m) == 'arm64' ]]; then
-    gaps_top="4" # menu bar is at the top; Apple Menu Bar is 25px
+    gaps_top="5" # menu bar is at the top; Apple Menu Bar is 25px
 else
-    gaps_top="29" # for none notch
+    gaps_top="30" # for none notch
 fi
 
-gaps_bottom="4"
-gaps_left="4"
-gaps_right="4"
-gaps_inner="4"
+gaps_bottom="5"
+gaps_left="5"
+gaps_right="5"
+gaps_inner="5"
 
 normal_border_color="010101"
 focused_border_color="808080"
@@ -48,56 +48,62 @@ yabai -m config mouse_action1               move
 yabai -m config mouse_action2               resize
 
 yabai -m config window_topmost              off
-yabai -m config window_opacity              off
-yabai -m config window_shadow               off # More Performance
+yabai -m config window_opacity              on
+yabai -m config window_shadow               float # More Performance
 
 yabai -m config active_window_opacity       1.0
-yabai -m config normal_window_opacity       0.9
+yabai -m config normal_window_opacity       0.90
 yabai -m config split_ratio                 0.5
 yabai -m config auto_balance                on
+    
+# Not working very smoothly
+#yabai -m config window_animation_duration   0.22
 
 # ====== Border settings =======================
 
-yabai -m config window_border               off # Not used because of Monterey round corners
+yabai -m config window_border               on # Not used because of Monterey round corners
 yabai -m config window_border_width         2
+yabai -m config window_border_hidpi         on
+yabai -m config window_border_blur          off
 yabai -m config active_window_border_color  "0xE0${focused_border_color}"
 #yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
 yabai -m config normal_window_border_color  "0x00${normal_border_color}"
+#yabai -m config insert_feedback_color       "0xff9dd274"
 
 # ====== List of rules =========================
 
 # Don't manage Preferences
-yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1
-yabai -m rule --add title='Force Quit Applications$' manage=off layer=above grid=3:3:1:1:1:1
-yabai -m rule --add app='^System Settings$' manage=off layer=above grid=4:3:1:1:1:2
-yabai -m rule --add app="^System Information" manage=off
+yabai -m rule --add title='Preferences$' manage=off layer=above grid=3:3:1:1:1:1 border=off
+yabai -m rule --add title='Force Quit Applications$' manage=off layer=above grid=3:3:1:1:1:1 border=off
+yabai -m rule --add app='^System Settings$' manage=off layer=above grid=4:3:1:1:1:2 border=off
+yabai -m rule --add app="^System Information" manage=off border=off
 
 # Other Stuff
-yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
-yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
-yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
-yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
-yabai -m rule --add label="mpv" app="^mpv$" manage=off
-yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
-yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
+yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off border=off
+yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off border=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off border=off
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off border=off
+yabai -m rule --add label="mpv" app="^mpv$" manage=off border=off
+yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off border=off
+yabai -m rule --add label="Transmission" app="^Transmission$" manage=off border=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-yabai -m rule --add app="^Stats" manage=off
-yabai -m rule --add app="^AirDrop$" manage=off
-yabai -m rule --add app="^Tunnelblick" manage=off
-yabai -m rule --add app="^Spotlight$" layer=above manage=off
+yabai -m rule --add app="^Stats" manage=off border=off
+yabai -m rule --add app="^AirDrop$" manage=off border=off
+yabai -m rule --add app="^Tunnelblick" manage=off border=off
+yabai -m rule --add app="^Spotlight$" layer=above manage=off border=off
 
 # Firefox
-yabai -m rule --add app="^Firefox$" title=".*Launch Application.*" manage=off 
-yabai -m rule --add app="^Firefox$" title=".*Opening.*" manage=off 
-yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" manage=off 
+yabai -m rule --add app="^Firefox$" title=".*Launch Application.*" manage=off  border=off
+yabai -m rule --add app="^Firefox$" title=".*Opening.*" manage=off border=off 
+yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" manage=off  border=off
 
-yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4 border=off
 
 # Open finder always on top, since otherwise it stays hidden behind applications (Seems like it's finder specific)
-yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4
-yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above 
+yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref|About Finder)" manage=off layer=above  border=off
 
 # Rule resizing grid windows when moving to bigger screen
 yabai -m signal --add event=window_focused app="Spotify|Calendar|Messages|Finderall" action="yabai -m window $YABAI_WINDOW_ID --grid 6:6:1:1:4:4"
@@ -125,10 +131,10 @@ function minimize_scratchpad_apps {
 }
 
 # --grid needed when application starts
-yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4
-yabai -m rule --add label="TickTick" app="^TickTick$" manage=off # For other TickTick sub-windows 
-yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4
+yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="TickTick" app="^TickTick$" manage=off border=off # For other TickTick sub-windows 
+yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4 border=off
 
 # Minimize Scratchpad windows, when focus is changed
 yabai -m signal --add event=window_focused action="${functions[minimize_scratchpad_apps]}"
