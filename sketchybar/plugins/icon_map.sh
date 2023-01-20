@@ -215,7 +215,7 @@ case $@ in
 "Blender")
   icon_result=":blender:"
   ;;
-"Canary Mail" | "HEY" | "Mail" | "Mailspring" | "MailMate" | "邮件" | "Outlook")
+"Canary Mail" | "HEY" | "Mail" | "Mailspring" | "MailMate" | "邮件" | "Microsoft Outlook")
   icon_result=":mail:"
   ;;
 "Safari" | "Safari Technology Preview")
