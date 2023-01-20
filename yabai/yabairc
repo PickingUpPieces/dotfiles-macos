@@ -17,15 +17,15 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # Check for Notch on MacBook
 if [[ $(uname -m) == 'arm64' ]]; then
-    gaps_top="5" # menu bar is at the top; Apple Menu Bar is 25px
+    gaps_top="7" # menu bar is at the top; Apple Menu Bar is 25px
 else
-    gaps_top="30" # for none notch
+    gaps_top="32" # for none notch
 fi
 
-gaps_bottom="5"
-gaps_left="5"
-gaps_right="5"
-gaps_inner="5"
+gaps_bottom="7"
+gaps_left="7"
+gaps_right="7"
+gaps_inner="7"
 
 normal_border_color="010101"
 focused_border_color="808080"
@@ -34,6 +34,7 @@ preselect_border_color="2d74da"
 # ====== Tiling settings =======================
 
 yabai -m config layout                      bsp
+yabai -m config external_bar                all:32:0
 yabai -m config top_padding                 "${gaps_top}"
 yabai -m config bottom_padding              "${gaps_bottom}"
 yabai -m config left_padding                "${gaps_left}"
@@ -47,14 +48,15 @@ yabai -m config mouse_modifier              fn
 yabai -m config mouse_action1               move
 yabai -m config mouse_action2               resize
 
-yabai -m config window_topmost              off
+yabai -m config window_topmost              on
 yabai -m config window_opacity              on
 yabai -m config window_shadow               float # More Performance
 
 yabai -m config active_window_opacity       1.0
-yabai -m config normal_window_opacity       0.90
+yabai -m config normal_window_opacity       0.95
 yabai -m config split_ratio                 0.5
 yabai -m config auto_balance                on
+yabai -m config window_zoom_persist         off
     
 # Not working very smoothly
 #yabai -m config window_animation_duration   0.22
