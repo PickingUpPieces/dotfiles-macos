@@ -3,10 +3,11 @@
 ##############################################
 
 # iTerm2
-alt - return : ~/.config/scripts/open_iterm.sh
+alt - return : "$HOME/.config/scripts/open_iterm.sh"
+lctrl + alt - return : "$HOME/.config/scripts/open_iterm.sh" "open_current_path"
 
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
-shift + alt - return : bash -c 'MOZ_DISABLE_SAFE_MODE_KEY=0 && open -na Firefox'
+shift + alt - return : bash -c 'export MOZ_DISABLE_SAFE_MODE_KEY=1 && open -na Firefox'
 
 # Restart Yabai
 shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
@@ -15,9 +16,9 @@ shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.m
 # Scratchpad 
 ##############################################
 
-alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
-alt - p : ~/.config/scripts/scratchpad.sh TickTick
-alt - s : ~/.config/scripts/scratchpad.sh Slack
+alt - b : "$HOME/.config/scripts/scratchpad.sh" Bitwarden
+alt - p : "$HOME/.config/scripts/scratchpad.sh" TickTick
+alt - s : "$HOME/.config/scripts/scratchpad.sh" Slack
 
 
 ##############################################

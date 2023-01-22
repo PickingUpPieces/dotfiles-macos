@@ -33,9 +33,9 @@ set -g theme_color_scheme nord
 # After every cd command execute ll
 function cd
     if count $argv > /dev/null
-        builtin cd "$argv"; and ll
+        builtin cd "$argv"; and ll; pwd > ~/.last_dir
     else
-        builtin cd ~; and ll
+        builtin cd ~; and ll; ; pwd > ~/.last_dir
     end
 end
 
