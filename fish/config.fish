@@ -1,3 +1,8 @@
+# Add brew path to PATH
+if ! type -q brew 
+    export PATH="$PATH:/opt/homebrew/bin"
+end
+
 # Set neovim as standard editor
 set -Ux EDITOR nvim
 set SHELL /bin/bash
@@ -16,11 +21,6 @@ export PATH="$PATH:/usr/local/opt/flutter/bin/"
 
 # TODO: Only for macOS
 export PATH="$PATH:$HOME/Library/Python/3.9/bin"
-
-# Add brew path to PATH
-if type -q brew 
-    export PATH="$PATH:$(brew --prefix)"
-end
 
 
 alias vim='nvim'

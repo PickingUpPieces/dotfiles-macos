@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Some backoff time needed for anti-swoosh. Otherwise space is deleted in between swooshs
-sleep 0.6
+sleep 0.4
 
 # Check only windows on current left space --> space_changed event
 space=$(yabai -m query --spaces | jq --arg recent_space "$YABAI_RECENT_SPACE_ID" '.[] | select(.id == ($recent_space|tonumber))')
