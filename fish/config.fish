@@ -5,7 +5,7 @@ end
 
 # Set neovim as standard editor
 set -Ux EDITOR nvim
-set SHELL /bin/bash
+export SHELL=/bin/bash
 
 # Needed for ansible (python) --> https://github.com/ansible/ansible/issues/32499
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES

@@ -11,6 +11,13 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin s
 
 FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 PADDINGS=3 # All paddings use this value (icon, label, background)
+BAR_HEIGHT=30 # Height of menu bar; On MacOS without notch the menu bar is 25px
+
+# Check for Notch on MacBook
+# menu bar is at the top; Apple Menu Bar is 25px
+if [[ $(uname -m) == 'arm64' ]]; then
+    BAR_HEIGHT=39
+fi
 
 # Setting up and starting the helper process
 HELPER=git.felix.helper
@@ -19,10 +26,10 @@ cd $HOME/.config/sketchybar/helper && make
 $HOME/.config/sketchybar/helper/helper $HELPER > /dev/null 2>&1 &
 
 # Unload the macOS on screen indicator overlay for volume change
-launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist > /dev/null 2>&1 &
+# launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist > /dev/null 2>&1 &
 
 # Setting up the general bar appearance and default values
-sketchybar --bar     height=39                                         \
+sketchybar --bar     height=$BAR_HEIGHT                                \
                      color=$BAR_COLOR                                  \
                      shadow=on                                         \
                      position=top                                      \
@@ -45,7 +52,7 @@ sketchybar --bar     height=39                                         \
                      label.padding_right=$PADDINGS                     \
                      padding_right=$PADDINGS                           \
                      padding_left=$PADDINGS                            \
-                     background.height=24                              \
+                     background.height=28                              \
                      background.corner_radius=9                        \
                      popup.background.border_width=2                   \
                      popup.background.corner_radius=9                  \

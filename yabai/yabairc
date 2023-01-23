@@ -20,7 +20,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 if [[ $(uname -m) == 'arm64' ]]; then
     yabai -m config external_bar                all:39:0
 else
-    yabai -m config external_bar                all:26:0
+    yabai -m config external_bar                all:30:0
 fi
 
 # Padding aroung the windows

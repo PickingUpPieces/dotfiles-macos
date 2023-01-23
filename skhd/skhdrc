@@ -1,6 +1,11 @@
 ##############################################
 # Applications
 ##############################################
+# IMPORTANT: Make sure that skhd uses the correct shell: 
+# e.g. fish is making problems for example
+# https://github.com/koekeishiya/skhd/issues/85
+# https://github.com/koekeishiya/skhd/issues/42#issuecomment-401886533
+# https://github.com/koekeishiya/skhd/issues/42#issuecomment-401889387
 
 # iTerm2
 alt - return : "$HOME/.config/scripts/open_iterm.sh"
