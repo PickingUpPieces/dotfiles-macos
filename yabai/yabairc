@@ -16,16 +16,15 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 # ====== Variables =============================
 
 # Check for Notch on MacBook
+# menu bar is at the top; Apple Menu Bar is 25px
 if [[ $(uname -m) == 'arm64' ]]; then
-    gaps_top="7" # menu bar is at the top; Apple Menu Bar is 25px
+    yabai -m config external_bar                all:39:0
 else
-    gaps_top="32" # for none notch
+    yabai -m config external_bar                all:26:0
 fi
 
-gaps_bottom="7"
-gaps_left="7"
-gaps_right="7"
-gaps_inner="7"
+# Padding aroung the windows
+PADDING="6" 
 
 normal_border_color="010101"
 focused_border_color="808080"
@@ -34,12 +33,11 @@ preselect_border_color="2d74da"
 # ====== Tiling settings =======================
 
 yabai -m config layout                      bsp
-yabai -m config external_bar                all:32:0
-yabai -m config top_padding                 "${gaps_top}"
-yabai -m config bottom_padding              "${gaps_bottom}"
-yabai -m config left_padding                "${gaps_left}"
-yabai -m config right_padding               "${gaps_right}"
-yabai -m config window_gap                  "${gaps_inner}"
+yabai -m config top_padding                 "${PADDING}"
+yabai -m config bottom_padding              "${PADDING}"
+yabai -m config left_padding                "${PADDING}"
+yabai -m config right_padding               "${PADDING}"
+yabai -m config window_gap                  "${PADDING}"
 
 yabai -m config mouse_follows_focus         on
 yabai -m config focus_follows_mouse         off
@@ -48,10 +46,10 @@ yabai -m config mouse_modifier              fn
 yabai -m config mouse_action1               move
 yabai -m config mouse_action2               resize
 
-yabai -m config window_topmost              on
+yabai -m config window_topmost              off
 yabai -m config window_opacity              on
-yabai -m config window_opacity_duration     0.15
-yabai -m config window_shadow               float # More Performance
+yabai -m config window_opacity_duration     0.2
+yabai -m config window_shadow               float 
 
 yabai -m config active_window_opacity       1.0
 yabai -m config normal_window_opacity       0.95
@@ -59,7 +57,7 @@ yabai -m config split_ratio                 0.5
 yabai -m config auto_balance                on
 # yabai -m config window_zoom_persist         off
     
-# Not working very smoothly
+# Not working very smoothly unfortunately
 #yabai -m config window_animation_duration   0.22
 
 # ====== Border settings =======================
@@ -69,8 +67,8 @@ yabai -m config window_border_width         2
 yabai -m config window_border_hidpi         on
 yabai -m config window_border_blur          off
 yabai -m config active_window_border_color  "0xE0${focused_border_color}"
-#yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
 yabai -m config normal_window_border_color  "0x00${normal_border_color}"
+#yabai -m config insert_window_border_color  "0xE0${preselect_border_color}"
 #yabai -m config insert_feedback_color       "0xff9dd274"
 
 # ====== List of rules =========================
@@ -96,13 +94,12 @@ yabai -m rule --add app="^Tunnelblick" manage=off border=off
 yabai -m rule --add app="^Spotlight$" layer=above manage=off border=off
 
 # Firefox
-yabai -m rule --add app="^Firefox$" title=".*Launch Application.*" manage=off  border=off
-yabai -m rule --add app="^Firefox$" title=".*Opening.*" manage=off border=off 
-yabai -m rule --add app="^Firefox$" title="Picture-in-Picture" manage=off  border=off
+yabai -m rule --add app="^Firefox$" opacity=1
+yabai -m rule --add app="^Firefox$" title=".*(Launch Application|Opening|Picture-in-Picture).*" manage=off border=off
 
-yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4 border=off
-yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4 border=off
-yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4 border=off
+yabai -m rule --add label="Calendar" app="^Calendar$" manage=off grid=6:6:1:1:4:4 border=off layer=above 
+yabai -m rule --add label="Spotify" app="^Spotify$" manage=off grid=6:6:1:1:4:4 border=off layer=above 
+yabai -m rule --add label="Messages" app="^Messages$" manage=off grid=6:6:1:1:4:4 border=off layer=above 
 
 # Open finder always on top, since otherwise it stays hidden behind applications (Seems like it's finder specific)
 yabai -m rule --add label="Finderall" app="^Finder$" manage=off layer=above grid=6:6:1:1:4:4 border=off
@@ -136,7 +133,7 @@ function minimize_scratchpad_apps {
 # --grid needed when application starts
 yabai -m rule --add label="Bitwarden" app="^Bitwarden$" manage=off grid=6:6:1:1:4:4 border=off
 yabai -m rule --add label="TickTick" app="^TickTick$" title="TickTick" manage=off grid=6:6:1:1:4:4 border=off
-yabai -m rule --add label="TickTick" app="^TickTick$" manage=off border=off # For other TickTick sub-windows 
+yabai -m rule --add app="^TickTick$" subrole="AXSystemDialog" manage=off border=off # For other TickTick sub-windows 
 yabai -m rule --add label="Slack" app="^Slack$" manage=off grid=6:6:1:1:4:4 border=off
 
 # Minimize Scratchpad windows, when focus is changed
@@ -165,16 +162,9 @@ function focus_recent_window {
     fi
 }
 
-# focus window after active space/display changes 
-# IMPORTANT: space_changed isn't triggered when the display is changed
-#yabai -m signal --add event=space_changed action="sleep 0.1 && ${functions[focus_recent_window]}"
-#yabai -m signal --add event=display_changed action="sleep 0.1 && ${functions[focus_recent_window]}"
-
 # Spotlight triggering this event as well which focuses wrong window
-# Add negative lookup regex for "Spotlight"
-# Negative lookup generator: http://www.formauri.es/personal/pgimeno/misc/non-match-regex
-yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="${functions[focus_recent_window]}"
-yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="${functions[focus_recent_window]}"
+yabai -m signal --add event=window_destroyed app!="^(Spotlight|TickTick)$" action="${functions[focus_recent_window]}"
+yabai -m signal --add event=application_terminated app!="^(Spotlight|TickTick)$" action="${functions[focus_recent_window]}"
 
 
 
@@ -185,8 +175,8 @@ yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l
 yabai -m signal --add event=space_changed action="sleep 0.3 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
 yabai -m signal --add event=display_changed action="sleep 0.3 && yabai -m query --spaces --space | jq '.index' | xargs -I % ruby ~/.config/scripts/space_focus.rb write %"
 
-yabai -m signal --add event=application_terminated app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.3 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
-yabai -m signal --add event=window_destroyed app="^([^S]|S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*([^Sp]|p([^So]|o([^St]|t([^Sl]|l([^Si]|i([^Sg]|g([^Sh]|h[^St]))))))))*(S(S|p(S|o(S|t(S|l(S|i(S|g(S|hS)))))))*(p(o?|ot(l?|li(g?|gh))))?)?$" action="sleep 0.3 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
+yabai -m signal --add event=application_terminated app!="^Spotlight$" action="sleep 0.3 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
+yabai -m signal --add event=window_destroyed app!="^Spotlight$" action="sleep 0.3 && yabai -m space --focus \$(ruby ~/.config/scripts/space_focus.rb read)"
 
 
 
@@ -197,3 +187,4 @@ yabai -m signal --add event=window_focused action="sketchybar --trigger window_f
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
+
