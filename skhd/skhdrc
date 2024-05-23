@@ -15,7 +15,7 @@ lctrl + ralt - return : "$HOME/.config/scripts/open_iterm.sh" "open_current_path
 shift + ralt - return : bash -c 'export MOZ_DISABLE_SAFE_MODE_KEY=1 && open -na Firefox'
 
 # Restart Yabai
-shift + lctrl + ralt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+shift + lctrl + ralt - r : bash -c 'yabai --restart-service'
 
 ##############################################
 # Scratchpad 

@@ -3,17 +3,25 @@
 source "$HOME/.config/sketchybar/colors.sh"
 source "$HOME/.config/sketchybar/icons.sh"
 
-CURRENT_WIFI="$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I)"
-SSID="$(echo "$CURRENT_WIFI" | grep -o "SSID: .*" | sed 's/^SSID: //')"
+CURRENT_WIFI="$(networksetup -getairportnetwork en0)"
+SSID="$(echo "$CURRENT_WIFI" | grep "Current Wi-Fi Network" | sed 's/^Current Wi-Fi Network: //')"
+IP_ADDRESS=$(scutil --nwi | grep address | sed 's/.*://' | tr -d ' ' | head -1)
+IS_VPN=$(scutil --nwi | grep -m1 'utun' | awk '{ print $1 }')
 
 args=()
 
-if [ "$SSID" = "" ]; then
-    args+=(--set "$NAME" label="N/A" \
+if [[ $IS_VPN != "" ]]; then
+    args+=(--set "$NAME" label="$SSID $VPN $IP_ADDRESS" \
                             label.drawing=on \
+                            icon=$VPN \
+                            alias.color="$CYAN")
+elif [ "$SSID" = "" ]; then
+    args+=(--set "$NAME" label="No WLAN" \
+                            label.drawing=on \
+                            icon=$NO_INTERNET \
                             alias.color="$RED")
 else
-    args+=(--set "$NAME"    label="$SSID" \
+    args+=(--set "$NAME"    label="$SSID $IP_ADDRESS" \
                             label.drawing=on \
                             alias.color="$WHITE" )
 fi
