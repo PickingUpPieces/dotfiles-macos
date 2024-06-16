@@ -1,24 +1,29 @@
 ##############################################
 # Applications
 ##############################################
+# IMPORTANT: Make sure that skhd uses the correct shell: 
+# e.g. fish is making problems for example
+# https://github.com/koekeishiya/skhd/issues/85
+# https://github.com/koekeishiya/skhd/issues/42#issuecomment-401886533
+# https://github.com/koekeishiya/skhd/issues/42#issuecomment-401889387
 
 # iTerm2
-alt - return : ~/.config/scripts/open_iterm.sh
+ralt - return : "$HOME/.config/scripts/open_iterm.sh"
+lctrl + ralt - return : "$HOME/.config/scripts/open_iterm.sh" "open_current_path"
 
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
-shift + alt - return : bash -c 'MOZ_DISABLE_SAFE_MODE_KEY=0 && open -na Firefox'
+shift + ralt - return : bash -c 'export MOZ_DISABLE_SAFE_MODE_KEY=1 && open -na Firefox'
 
 # Restart Yabai
-shift + lctrl + alt - r : bash -c 'launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"'
+shift + lctrl + ralt - r : bash -c 'yabai --restart-service'
 
 ##############################################
 # Scratchpad 
 ##############################################
 
-alt - b : ~/.config/scripts/scratchpad.sh Bitwarden
-alt - p : ~/.config/scripts/scratchpad.sh TickTick
-alt - s : ~/.config/scripts/scratchpad.sh Slack
-alt - u : ~/.config/scripts/scratchpad_RocketChat.sh Rocket.Chat
+ralt - b : "$HOME/.config/scripts/scratchpad.sh" Bitwarden
+ralt - p : "$HOME/.config/scripts/scratchpad.sh" TickTick
+ralt - s : "$HOME/.config/scripts/scratchpad.sh" Slack
 
 
 ##############################################
@@ -26,105 +31,108 @@ alt - u : ~/.config/scripts/scratchpad_RocketChat.sh Rocket.Chat
 ##############################################
 
 # Window
-lalt - h : yabai -m window --focus west
-lalt - j : yabai -m window --focus south
-lalt - k : yabai -m window --focus north
-lalt - l : yabai -m window --focus east
+ralt - h : yabai -m window --focus west
+ralt - j : yabai -m window --focus south
+ralt - k : yabai -m window --focus north
+ralt - l : yabai -m window --focus east
 
 # Workspace 
-lalt - 1 : yabai -m space --focus 1 
-lalt - 2 : yabai -m space --focus 2
-lalt - 3 : yabai -m space --focus 3
-lalt - 4 : yabai -m space --focus 4 
-lalt - 5 : yabai -m space --focus 5
-lalt - 6 : yabai -m space --focus 6
-lalt - 7 : yabai -m space --focus 7
-lalt - 8 : yabai -m space --focus 8
-lalt - 9 : yabai -m space --focus 9
+ralt - 1 : yabai -m space --focus 1 
+ralt - 2 : yabai -m space --focus 2
+ralt - 3 : yabai -m space --focus 3
+ralt - 4 : yabai -m space --focus 4 
+ralt - 5 : yabai -m space --focus 5
+ralt - 6 : yabai -m space --focus 6
+ralt - 7 : yabai -m space --focus 7
+ralt - 8 : yabai -m space --focus 8
+ralt - 9 : yabai -m space --focus 9
 
 # Monitors 
-ctrl + lalt - 1  : yabai -m display --focus 1
-ctrl + lalt - 2  : yabai -m display --focus 2
-ctrl + lalt - 3  : yabai -m display --focus 3
+ctrl + ralt - 1  : yabai -m display --focus 1
+ctrl + ralt - 2  : yabai -m display --focus 2
+ctrl + ralt - 3  : yabai -m display --focus 3
 
 ##############################################
 # Moving
 ##############################################
 
 # Window
-shift + lalt - h : yabai -m window --warp west
-shift + lalt - j : yabai -m window --warp south
-shift + lalt - k : yabai -m window --warp north
-shift + lalt - l : yabai -m window --warp east
+shift + ralt - h : yabai -m window --warp west
+shift + ralt - j : yabai -m window --warp south
+shift + ralt - k : yabai -m window --warp north
+shift + ralt - l : yabai -m window --warp east
 
 # Window to Workspace
-shift + lalt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 && sketchybar --trigger windows_on_spaces
-shift + lalt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 && sketchybar --trigger windows_on_spaces
-shift + lalt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 && sketchybar --trigger windows_on_spaces
-shift + lalt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 && sketchybar --trigger windows_on_spaces
-shift + lalt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 && sketchybar --trigger windows_on_spaces
-shift + lalt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 && sketchybar --trigger windows_on_spaces
-shift + lalt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 && sketchybar --trigger windows_on_spaces
-shift + lalt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 && sketchybar --trigger windows_on_spaces
-shift + lalt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 && sketchybar --trigger windows_on_spaces
+shift + ralt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 && sketchybar --trigger windows_on_spaces
+shift + ralt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 && sketchybar --trigger windows_on_spaces
+shift + ralt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 && sketchybar --trigger windows_on_spaces
+shift + ralt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 && sketchybar --trigger windows_on_spaces
+shift + ralt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 && sketchybar --trigger windows_on_spaces
+shift + ralt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 && sketchybar --trigger windows_on_spaces
+shift + ralt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 && sketchybar --trigger windows_on_spaces
+shift + ralt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 && sketchybar --trigger windows_on_spaces
+shift + ralt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 && sketchybar --trigger windows_on_spaces
 
 # Rotate windows clockwise and anticlockwise
-alt - r         : yabai -m space --rotate 90
-shift + alt - r : yabai -m space --rotate 270
+ralt - r         : yabai -m space --rotate 90
+shift + ralt - r : yabai -m space --rotate 270
 
 ##############################################
 # Sizing
 ##############################################
 
 # Window
-lctrl + alt - h : \
+lctrl + ralt - h : \
     yabai -m window --resize left:-20:0 ; \
     yabai -m window --resize right:-20:0
 
-lctrl + alt - j : \
+lctrl + ralt - j : \
     yabai -m window --resize bottom:0:20 ; \
     yabai -m window --resize top:0:20
 
-lctrl + alt - k : \
+lctrl + ralt - k : \
     yabai -m window --resize top:0:-20 ; \
     yabai -m window --resize bottom:0:-20
 
-lctrl + alt - l : \
+lctrl + ralt - l : \
     yabai -m window --resize right:20:0 ; \
     yabai -m window --resize left:20:0
 
 # Equalize size of windows
-lctrl + alt - 0 : yabai -m space --balance
+lctrl + ralt - 0 : yabai -m space --balance
 
 ##############################################
 # Miscellaneous
 ##############################################
 #
 # Window zoom fullscreen (NOT native fullscreen)
-alt - f         : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+ralt - f : yabai -m window --toggle zoom-fullscreen && sketchybar --trigger window_focus
 
 # Floating window zoom fullscreen
-shift + alt - f : yabai -m window --grid 1:1:0:0:1:1; sketchybar --trigger window_focus
+shift + ralt - f : yabai -m window --grid 1:1:0:0:1:1 && sketchybar --trigger window_focus
 
 # Float / Unfloat window
-shift + alt - space : yabai -m window --toggle float
+shift + ralt - space : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # Enable / Disable gaps in current workspace
-lctrl + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+lctrl + ralt - g : yabai -m space --toggle padding --toggle gap
 
 # Close window (only works on windows with a close button in it's titlebar). cmq + q closess all open application windows
-alt - q : yabai -m window --close && yabai -m window --focus recent
+ralt - q : yabai -m window --close
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-shift + alt - n : yabai -m space --create; \
-                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')"; \
-                  yabai -m window --space "${index}"; \
-                  yabai -m space --focus "${index}"; \
-                  yabai -m window --focus first; \
+shift + ralt - n : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}" && \
+                  yabai -m window --focus first && \
+                  sketchybar --trigger space_change && \
         		  sketchybar --trigger windows_on_spaces
 
 # create desktop and follow focus - uses jq for parsing json (brew install jq)
-shift + cmd - n : yabai -m space --create; \
-                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')"; \
-                  yabai -m space --focus "${index}"; \
-	        	  sketchybar --trigger windows_on_spaces
+shift + cmd - n : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m space --focus "${index}" && \
+                  sketchybar --trigger space_change && \
+        		  sketchybar --trigger windows_on_spaces
+

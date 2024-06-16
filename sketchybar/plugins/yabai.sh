@@ -53,7 +53,16 @@ windows_on_spaces () {
           # DONT SHOW WINDWOS WHICH ARE HIDDEN
           window=$(yabai -m query --windows --space $space | jq --arg id "$app" '.[] | select(.id==($id|tonumber))')
           window_app=$(echo $window | jq '.app' | tr -d '"') # Remove quotes from string
+          window_title=$(echo $window | jq '.title' | tr -d '"') # Remove quotes from string
           window_minimized=$(echo $window | jq '."is-minimized"')
+
+          if [ "$window_title" == "Microsoft Teams Notification" ]; then
+              continue
+          fi
+
+          if [[ $window_title == *"Microsoft Teams Call"* ]]; then
+              continue
+          fi
 
           if [[ "$window_minimized" == "false" ]]; then
              icon_strip+=" $($HOME/.config/sketchybar/plugins/icon_map.sh $window_app)"

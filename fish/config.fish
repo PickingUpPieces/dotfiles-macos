@@ -1,22 +1,26 @@
+# Add brew path to PATH
+if ! type -q brew 
+    export PATH="$PATH:/opt/homebrew/bin"
+end
+
 # Set neovim as standard editor
 set -Ux EDITOR nvim
-set SHELL /bin/bash
+export SHELL=/bin/bash
 
 # Needed for ansible (python) --> https://github.com/ansible/ansible/issues/32499
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # https://stackoverflow.com/questions/54528115/unable-to-extract-tar-file-though-ansible-unarchive-module-in-macos
-export PATH="$HOME/.cargo/bin:/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
 
+# Flutter development
 export PATH="$PATH:/usr/local/opt/flutter/bin/"
 
-# Add brew path to PATH
-if type -q brew 
-    export PATH="$PATH:$(brew --prefix)"
-end
+# TODO: Only for macOS
+export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 
 
 alias vim='nvim'
@@ -29,9 +33,9 @@ set -g theme_color_scheme nord
 # After every cd command execute ll
 function cd
     if count $argv > /dev/null
-        builtin cd "$argv"; and ll
+        builtin cd "$argv"; and ll; pwd > ~/.last_dir
     else
-        builtin cd ~; and ll
+        builtin cd ~; and ll; ; pwd > ~/.last_dir
     end
 end
 
@@ -47,3 +51,6 @@ alias log="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d
 alias cfg="git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias push="git push"
 
+# BEGIN ANSIBLE MANAGED BLOCK
+set -Ua fish_user_paths $HOME/.cargo/bin
+# END ANSIBLE MANAGED BLOCK
