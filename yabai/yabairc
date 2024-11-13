@@ -122,9 +122,12 @@ yabai -m signal --add event=space_changed action="sh ~/.config/scripts/destroy_e
 # Scratchpad
 #######################	
 function minimize_scratchpad_apps {
+    # Minimize the scratchpad window when it is out of focus
     # FIXME: Add here the application names of the desired scratchpad applications
     SCRATCHPAD_APPS=(Slack Bitwarden TickTick) 
-
+    echo "Calling minimize scratchpad"
+    # Some backoff so focused_window is the right one
+    sleep 0.3
     sh ~/.config/scripts/minimize_scratchpad.sh "${SCRATCHPAD_APPS[@]}"
 }
 
