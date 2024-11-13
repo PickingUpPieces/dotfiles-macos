@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+#
 ##############################################
 # Applications
 ##############################################
@@ -6,6 +8,7 @@
 # https://github.com/koekeishiya/skhd/issues/85
 # https://github.com/koekeishiya/skhd/issues/42#issuecomment-401886533
 # https://github.com/koekeishiya/skhd/issues/42#issuecomment-401889387
+# Tutorial 2024 for setting the correct shell for skhd: https://github.com/koekeishiya/skhd/issues/42#issuecomment-1866891201
 
 # iTerm2
 ralt - return : "$HOME/.config/scripts/open_iterm.sh"
