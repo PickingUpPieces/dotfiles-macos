@@ -16,7 +16,7 @@ lctrl + ralt - return : "$HOME/.config/scripts/open_iterm.sh" "open_current_path
 
 # Release alt quickly, because it triggers firefoxes safe mode otherwise --> https://github.com/koekeishiya/skhd/issues/140
 #shift + ralt - return : bash -c 'export MOZ_DISABLE_SAFE_MODE_KEY=1 && open -na Firefox'
-shift + ralt - return : bash -c 'open -na Safari'
+shift + ralt - return : bash -c "osascript $HOME/.config/scripts/open_arc.scpt"
 
 # Restart Yabai
 shift + lctrl + ralt - r : bash -c 'yabai --restart-service'
@@ -27,7 +27,7 @@ shift + lctrl + ralt - r : bash -c 'yabai --restart-service'
 
 ralt - b : "$HOME/.config/scripts/scratchpad.sh" Bitwarden
 ralt - p : "$HOME/.config/scripts/scratchpad.sh" TickTick
-ralt - s : "$HOME/.config/scripts/scratchpad.sh" Slack
+#ralt - s : "$HOME/.config/scripts/scratchpad.sh" Slack
 
 
 ##############################################
