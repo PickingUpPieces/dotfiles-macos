@@ -67,7 +67,7 @@ windows_on_spaces () {
           fi
 
           if [[ "$window_minimized" == "false" ]]; then
-             icon_strip+=" $($CONFIG_DIR/colors.sh/plugins/icon_map.sh $window_app)"
+             icon_strip+=" $($CONFIG_DIR/plugins/icon_map.sh $window_app)"
           fi
 
           # ONLY HIDE SCRATCHPAD WINDOWS
