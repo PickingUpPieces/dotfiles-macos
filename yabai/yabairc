@@ -17,11 +17,11 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # Check for Notch on MacBook
 # menu bar is at the top; Apple Menu Bar is 25px
-if [[ $(uname -m) == 'arm64' ]]; then
-    yabai -m config external_bar                all:39:0
-else
-    yabai -m config external_bar                all:30:0
-fi
+#if [[ $(uname -m) == 'arm64' ]]; then
+#    yabai -m config external_bar                all:39:0
+#else
+yabai -m config external_bar                all:30:0
+#fi
 
 # Padding aroung the windows
 PADDING="6" 

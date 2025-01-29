@@ -1,1 +1,1 @@
-/Users/pickiv/Documents/Repositories/private/ansible-workspace-setup/roles/nvim/files/init.vim
+/Users/vincent/repos/ansible-workspace-setup/roles/nvim/files/init.vim

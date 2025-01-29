@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # General Icons
 LOADING=􀖇
@@ -38,11 +38,19 @@ BATTERY_25=􀛩
 BATTERY_0=􀛪
 BATTERY_CHARGING=􀢋
 
-# Microfon
-MICROFON_ON=􀊱 
-MICROFON_OFF=􀊲 
+# Volume Icons
+VOLUME_100=􀊩
+VOLUME_66=􀊧
+VOLUME_33=􀊥
+VOLUME_10=􀊡
+VOLUME_0=􀊣
 
+# Microfon
+MICROFON_ON=􀊱
+MICROFON_OFF=􀊲
+
+# WiFi
 VPN=󰌾
 ETHERNET=󰈁
 WIFI=󰖩
-NO_INTERNET=󰋔 
+NO_INTERNET=󰋔

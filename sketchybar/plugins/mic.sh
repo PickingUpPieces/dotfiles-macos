@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
-source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+source "$CONFIG_DIR/icons.sh"
+source "$CONFIG_DIR/colors.sh"
 
 MIC_VOLUME=$(osascript -e 'input volume of (get volume settings)')
 

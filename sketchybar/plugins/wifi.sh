@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.config/sketchybar/colors.sh"
-source "$HOME/.config/sketchybar/icons.sh"
+source "$CONFIG_DIR/icons.sh"
+source "$CONFIG_DIR/colors.sh"
 
 #CURRENT_WIFI="$(networksetup -getairportnetwork en0)"
 SSID="$(ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}')"
