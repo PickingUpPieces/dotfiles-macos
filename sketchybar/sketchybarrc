@@ -9,7 +9,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are st
 FONT="SF Pro" # Needs to have Regular, Bold, Semibold, Heavy and Black variants
 PADDINGS=3 # All paddings use this value (icon, label, background)
 BAR_HEIGHT=37 # Height of menu bar; On MacOS without notch the menu bar is 25px
-TILING_MANAGER="yabai" # yabai or aerospace
+export TILING_MANAGER="yabai" # yabai or aerospace
 
 # Check for Notch on MacBook
 # menu bar is at the top; Apple Menu Bar is 25px
@@ -81,7 +81,8 @@ if [[ "$TILING_MANAGER" == "aerospace" ]]; then
   source "$ITEM_DIR/spaces_aerospace.sh"
   source "$ITEM_DIR/front_app_aerospace.sh"
 else
-  source "$ITEM_DIR/yabai.sh"
+  source "$ITEM_DIR/spaces_yabai.sh"
+  source "$ITEM_DIR/front_app_yabai.sh"
 fi
 
 # Right
@@ -100,10 +101,9 @@ source "$ITEM_DIR/right_bracket.sh"
 #source "$ITEM_DIR/spotify.sh"
 # source "$ITEM_DIR/media.sh"
 
-sketchybar --hotload on
-
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
+sketchybar --hotload on
 
 echo "sketchybar configuation loaded.."
 

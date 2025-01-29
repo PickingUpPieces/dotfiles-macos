@@ -25,7 +25,7 @@ do
                               label.background.color=$BACKGROUND_2          \
                               label.background.corner_radius=8              \
                               label.drawing=off                             \
-                              script="$PLUGIN_DIR/space.sh"                 \
+                              script="$PLUGIN_DIR/space_yabai.sh"                 \
             --subscribe       space.$sid mouse.clicked
 done
 

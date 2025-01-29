@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 window_state() {
-  source "$HOME/.config/sketchybar/colors.sh"
-  source "$HOME/.config/sketchybar/icons.sh"
+  source "$CONFIG_DIR/icons.sh"
+  source "$CONFIG_DIR/colors.sh"
 
   WINDOW=$(yabai -m query --windows --window)
   CURRENT=$(echo "$WINDOW" | jq '.["stack-index"]')
@@ -56,16 +56,18 @@ windows_on_spaces () {
           window_title=$(echo $window | jq '.title' | tr -d '"') # Remove quotes from string
           window_minimized=$(echo $window | jq '."is-minimized"')
 
+          # Dont show Teams since Icon is shown on every virtual desktop
           if [ "$window_title" == "Microsoft Teams Notification" ]; then
               continue
           fi
 
+          # Dont show Teams since Icon is shown on every virtual desktop
           if [[ $window_title == *"Microsoft Teams Call"* ]]; then
               continue
           fi
 
           if [[ "$window_minimized" == "false" ]]; then
-             icon_strip+=" $($HOME/.config/sketchybar/plugins/icon_map.sh $window_app)"
+             icon_strip+=" $($CONFIG_DIR/colors.sh/plugins/icon_map.sh $window_app)"
           fi
 
           # ONLY HIDE SCRATCHPAD WINDOWS

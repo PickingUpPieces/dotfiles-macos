@@ -27,7 +27,7 @@ for m in $(aerospace list-monitors | awk '{print $1}'); do
       label.y_offset=-1
       background.color=$BACKGROUND_1
       background.border_color=$BACKGROUND_2
-      script="$PLUGIN_DIR/space.sh"
+      script="$PLUGIN_DIR/space_aerospace.sh"
     )
 
     sketchybar --add space space.$sid left \

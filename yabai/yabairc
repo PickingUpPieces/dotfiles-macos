@@ -12,6 +12,8 @@
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
+# Enable borders
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
 
 # ====== Variables =============================
 
