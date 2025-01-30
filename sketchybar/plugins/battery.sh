@@ -14,11 +14,11 @@ case ${PERCENTAGE} in
     ICON="􀛨"
     ICON_COLOR=$BATTERY_1
     ;;
-  7[0-9])
+  [6-7][0-9])
     ICON="􀺸"
     ICON_COLOR=$BATTERY_2
     ;;
-  [3-6][0-9])
+  [3-5][0-9])
     ICON="􀺶"
     ICON_COLOR=$BATTERY_3
     ;;
