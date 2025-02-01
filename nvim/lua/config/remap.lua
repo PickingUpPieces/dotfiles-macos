@@ -1,7 +1,5 @@
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Return to file explorer" })
-
 -- Disable arrow keys in normal mode
 vim.keymap.set("", "<Up>", "<NOP>", { noremap = true, silent = true })
 vim.keymap.set("", "<Down>", "<NOP>", { noremap = true, silent = true })
