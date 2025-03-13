@@ -7,7 +7,7 @@ vim.keymap.set("", "<Left>", "<NOP>", { noremap = true, silent = true })
 vim.keymap.set("", "<Right>", "<NOP>", { noremap = true, silent = true })
 
 -- Move to the end of the line
-vim.keymap.set("n", "<C-e>", "$", { desc = "Custom: Move to end of line" })
+vim.keymap.set("", "<C-e>", "$", { desc = "Custom: Move to end of line" })
 
 -- Map esc to ctrl + c
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Custom: esc == ctrl+c"})

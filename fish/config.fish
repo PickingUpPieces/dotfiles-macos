@@ -53,4 +53,5 @@ alias push="git push"
 
 # BEGIN ANSIBLE MANAGED BLOCK
 set -Ua fish_user_paths $HOME/.cargo/bin
+set -Ux PATH $HOME/.cargo/bin $PATH
 # END ANSIBLE MANAGED BLOCK

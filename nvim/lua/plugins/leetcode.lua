@@ -7,16 +7,17 @@ return {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
     },
+    lazy = false,  -- Load immediately at startup
     opts = {
         -- configuration goes here
         ---@type lc.lang
         lang = "rust",
         ---@type string
-        arg = "leetcode",
-        ---@type table<string, boolean>
-        plugins = {
-            non_standalone = false,
-        },
+--      arg = "leetcode",
+        --@type table<string, boolean>
+--      plugins = {
+--          non_standalone = false,
+--      },
         storage = {
             home = vim.fn.stdpath("data") .. "/leetcode",
             cache = vim.fn.stdpath("cache") .. "/leetcode",
