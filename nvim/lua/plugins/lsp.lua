@@ -16,6 +16,18 @@ return {
                 }
             })
 
+            -- Configure clangd for C++
+            lspconfig.clangd.setup({
+                cmd = { "clangd", "--background-index" },  -- Command to start clangd
+                filetypes = { "c", "cpp", "objc", "objcpp" },  -- Supported file types
+                root_dir = lspconfig.util.root_pattern("compile_commands.json", "Makefile", ".git"),  -- Root directory detection
+                settings = {
+                    clangd = {
+                        fallbackFlags = { "-std=c++17" },  -- Set default C++ standard
+                    }
+                }
+            })
+
             -- TODO: Configure more LSPs here 
         end
     },
@@ -23,8 +35,10 @@ return {
     -- nvim-cmp plugin for completion
     {
         "hrsh7th/nvim-cmp",  -- Completion plugin
+        tag = "v0.0.2",
         config = function()
             local cmp = require("cmp")
+
             cmp.setup({
                 sources = {
                     {name = 'nvim_lsp'},

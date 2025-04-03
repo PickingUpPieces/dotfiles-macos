@@ -13,3 +13,6 @@ As package manager i use [lazy](https://github.com/folke/lazy.nvim), which needs
 - todo-comments
 - treesitter
 - leetcode
+
+## ROS2 Setup
+If c++ is used with clangd, generate the `compile_commands.json` with colcon with `colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`.
