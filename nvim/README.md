@@ -1,5 +1,16 @@
 # nvim config
 
+# Installation
+
+## Ubuntu/Debian
+Install neovim from ppa to get newer version:
+
+```
+sudo add-apt-repository ppa:neovim-ppa/stable
+# Or /unstable for the brave ones
+sudo apt update
+```
+
 ## Package Manager
 As package manager i use [lazy](https://github.com/folke/lazy.nvim), which needs to be cloned as written in the repos README.
 
